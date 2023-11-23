@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.004481341, g: 0.058967277, b: 0.23219556, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 11
   m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: d61421b463a1ec349aaa5d846f17c91d, type: 2}
+  m_UseShadowmask: 0
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -118,8 +118,6 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-    maxJobWorkers: 0
-    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -154,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenEffect: {fileID: 186440, guid: 58b4f35335c59de4d8a92239a48b274f, type: 3}
   loopTimeLimit: 0.8
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &2453079
 Transform:
   m_ObjectHideFlags: 0
@@ -166,7 +164,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 6.45, y: 1.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -202,8 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenEffect: {fileID: 152882, guid: ee817f2a6f2d36f489f03cdf54902f0b, type: 3}
   loopTimeLimit: 0.8
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &31025700
 Transform:
   m_ObjectHideFlags: 0
@@ -214,7 +211,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.00000008940697, y: 1.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -277,7 +273,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
 --- !u!223 &503386181
 Canvas:
   m_ObjectHideFlags: 0
@@ -309,7 +304,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1050854729}
   m_Father: {fileID: 0}
@@ -351,8 +345,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenEffect: {fileID: 141596, guid: 6b5cdea243db4bc4b9498aae2aa4c103, type: 3}
   loopTimeLimit: 0.8
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &825672019
 Transform:
   m_ObjectHideFlags: 0
@@ -363,7 +357,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1.12, z: 6.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -397,10 +390,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69093af5dcdce7b4ab5bbf82d06dbdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenEffect: {fileID: 1123519404155642, guid: 9823f61a7e929c6468def83c27560f48, type: 3}
+  chosenEffect: {fileID: 1123519404155642, guid: 9823f61a7e929c6468def83c27560f48,
+    type: 3}
   loopTimeLimit: 1.4
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &870881907
 Transform:
   m_ObjectHideFlags: 0
@@ -411,7 +405,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -6.3, y: 0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -444,7 +437,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 503386182}
   m_RootOrder: 0
@@ -469,7 +461,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8308824, g: 0.8308824, b: 0.8308824, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -495,7 +486,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050854728}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!1 &1244826925
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,8 +518,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenEffect: {fileID: 164592, guid: 5423bfc84896575469c1270496ce5a32, type: 3}
   loopTimeLimit: 0.8
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &1244826927
 Transform:
   m_ObjectHideFlags: 0
@@ -539,7 +530,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.00000008940697, y: 1.12, z: -6.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -573,10 +563,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69093af5dcdce7b4ab5bbf82d06dbdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenEffect: {fileID: 1486123758399518, guid: c211cd63eef717741a0578bda14552a9, type: 3}
+  chosenEffect: {fileID: 1486123758399518, guid: c211cd63eef717741a0578bda14552a9,
+    type: 3}
   loopTimeLimit: 1.4
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &1311902304
 Transform:
   m_ObjectHideFlags: 0
@@ -587,7 +578,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -6.3, y: 0.38000003, z: 6.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -621,10 +611,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69093af5dcdce7b4ab5bbf82d06dbdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenEffect: {fileID: 1308696705675058, guid: 92f1a4b7c0101cb4f84455289ac65548, type: 3}
+  chosenEffect: {fileID: 1308696705675058, guid: 92f1a4b7c0101cb4f84455289ac65548,
+    type: 3}
   loopTimeLimit: 1.4
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &1615995128
 Transform:
   m_ObjectHideFlags: 0
@@ -635,7 +626,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -6.3, y: 0.38000003, z: -6.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -671,8 +661,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenEffect: {fileID: 185518, guid: 2ef436b6c6313494daf190cd68ebf636, type: 3}
   loopTimeLimit: 0.8
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &1746167449
 Transform:
   m_ObjectHideFlags: 0
@@ -683,7 +673,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 6.45, y: 1.15, z: -6.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -760,8 +749,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenEffect: {fileID: 168694, guid: 9e4fad450282ac64daeb20efbc2b9dfb, type: 3}
   loopTimeLimit: 0.8
-  spawnWithoutLight: 1
-  spawnWithoutSound: 1
+  disableLights: 1
+  disableSound: 1
 --- !u!4 &2106641905
 Transform:
   m_ObjectHideFlags: 0
@@ -772,7 +761,6 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 6.45, y: 1.15, z: 6.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
