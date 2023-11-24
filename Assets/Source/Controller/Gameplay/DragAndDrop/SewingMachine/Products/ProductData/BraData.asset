@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301bff5c55c03994aa3a8d5e68d956bf, type: 3}
+  m_Name: BraData
+  m_EditorClassIdentifier: 
+  type: 1
+  icon: {fileID: 21300000, guid: 416067fa297e64842be01c0172c22968, type: 3}
+  unlockLevel: 1
+  sewingTime: 3
+  paintingTime: 3
+  incomeAmount: 100

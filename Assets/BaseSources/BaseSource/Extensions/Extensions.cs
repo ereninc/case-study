@@ -185,15 +185,21 @@ public static class Extensions
         return target;
     }
 
+    public static Transform SetPositionAndRotation(this Transform target, Vector3 localPosition, Quaternion localRotation,
+        Vector3 localScale)
+    {
+        target.transform.position = localPosition;
+        target.transform.localRotation = localRotation;
+        target.localScale = localScale;
+        return target;
+    }
+
     public static Sequence ResetLocalTween(this Transform target, float scaleFactor = 1f, float tweenDuration = 0.5f)
     {
         var sequence = DOTween.Sequence();
         sequence.Append(target.DOLocalMove(Vector3.zero, tweenDuration));
         sequence.Join(target.DOLocalRotate(Vector3.zero, tweenDuration));
         sequence.Join(target.DOScale(scaleFactor, tweenDuration));
-        // target.DOLocalMove(Vector3.zero, tweenDuration);
-        // target.DOLocalRotate(Vector3.zero, tweenDuration);
-        // target.DOScale(scaleFactor, tweenDuration);
         return sequence;
     }
 

@@ -2,17 +2,19 @@ using UnityEngine;
 using Cinemachine;
 using Sirenix.OdinInspector;
 
-public class CameraController : Singleton<CameraController>
+public class CameraController : Singleton<CameraController>, IAreaStateObserver
 {
+    [SerializeField] private CinemachineVirtualCamera sewingCamera, paintingCamera;
+    [SerializeField] private CinemachineVirtualCamera activeCamera;
+    
     public Camera main;
     public Camera uiCamera;
-    [SerializeField] private CinemachineVirtualCamera gameplayCamera, finalCamera;
-    [SerializeField] private CinemachineVirtualCamera activeCamera;
 
     public override void Initialize()
     {
         base.Initialize();
-        ChangeCamera(CameraType.Gameplay);
+        AddToAreaObserverList();
+        ChangeCamera(CameraType.Sewing);
     }
 
     [Button]
@@ -25,13 +27,32 @@ public class CameraController : Singleton<CameraController>
 
         switch (type)
         {
-            case CameraType.Gameplay:
-                gameplayCamera.SetActiveGameObject(true);
-                activeCamera = gameplayCamera;
+            case CameraType.Sewing:
+                sewingCamera.SetActiveGameObject(true);
+                activeCamera = sewingCamera;
                 break;
-            case CameraType.Final:
-                finalCamera.SetActiveGameObject(true);
-                activeCamera = finalCamera;
+            case CameraType.Painting:
+                paintingCamera.SetActiveGameObject(true);
+                activeCamera = paintingCamera;
+                break;
+        }
+    }
+
+    public void AddToAreaObserverList()
+    {
+        AreaController.AddListener(this);
+        Debug.Log("CameraController is now AreaStateListener");
+    }
+
+    public void OnAreaStateChanged()
+    {
+        switch (AreaController.currentAreaState)
+        {
+            case AreaStates.Sewing:
+                ChangeCamera(CameraType.Sewing);
+                break;
+            case AreaStates.Painting:
+                ChangeCamera(CameraType.Painting);
                 break;
         }
     }
@@ -39,6 +60,6 @@ public class CameraController : Singleton<CameraController>
 
 public enum CameraType
 {
-    Gameplay,
-    Final
+    Sewing,
+    Painting
 }

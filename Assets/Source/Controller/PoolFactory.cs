@@ -1,8 +1,14 @@
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 public class PoolFactory : Singleton<PoolFactory>
 {
+    [Header("SETTINGS")] 
+    [SerializeField] private bool isDynamic;
+    
+    [Space(12)]
+    [Header("POOLS")]
     public Pools[] pools;
 
     public T GetDeactiveItem<T>(PoolEnum poolEnum)
@@ -33,5 +39,6 @@ public class Pools
 
 public enum PoolEnum
 {
-    Pool1,
+    Product,
+    Rope
 }

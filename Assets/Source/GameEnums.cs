@@ -30,6 +30,6 @@ public enum ProductTypes
 {
     Sock,
     Bra,
-    Boxer,
-    Pant
+    Slip,
+    Short
 }

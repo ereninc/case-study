@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameController : Singleton<GameController>
 {
     private readonly ObservedValue<GameStates> GameStatus = new(GameStates.Loading);
-    [ShowInInspector] private IList<IGameStateObserver> _gameStatObservers;
+    private IList<IGameStateObserver> _gameStatObservers;
     
     public GameStates currentGameState;
 
