@@ -51,16 +51,12 @@ public class Product : TransformObject, IDraggable
 
     private void OnReachedPaintButton(IDraggable product)
     {
-        if (product != this) return;
-        var sequence = DOTween.Sequence();
-        sequence.Append(Transform.DOScale(1.2f, 0.15f).From(1f));
-        sequence.Append(Transform.DOScale(0f, 0.15f));
-        sequence.OnComplete(OnPaintArea); //CHANGE HERE WITH OnPaintArea
+        if ((Product)product != this) return;
+        Transform.TweenScaleShrink(1.2f, 0f, 0.3f, OnPaintArea);
     }
 
     private void OnPaintArea()
     {
-        //SEND IT TO PAINT SLOTS
         PaintingActions.Invoke_OnEnterPaintingArea(this);
         _visualModel.OnPaintArea();
     }
@@ -132,6 +128,7 @@ public class Product : TransformObject, IDraggable
 
     #endregion
 
+    //WHEN SELL IT AFTER PAINTING
     private void OnReturnPool()
     {
         Destroy(_visualModel.gameObject);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -141,7 +142,7 @@ public static class Extensions
         return Texture2D.CreateExternalTexture(
             texture.width,
             texture.height,
-           TextureFormat.RGBA32,
+            TextureFormat.RGBA32,
             false, false,
             texture.GetNativeTexturePtr());
     }
@@ -185,7 +186,8 @@ public static class Extensions
         return target;
     }
 
-    public static Transform SetPositionAndRotation(this Transform target, Vector3 localPosition, Quaternion localRotation,
+    public static Transform SetPositionAndRotation(this Transform target, Vector3 localPosition,
+        Quaternion localRotation,
         Vector3 localScale)
     {
         target.transform.position = localPosition;
@@ -208,7 +210,17 @@ public static class Extensions
         target.DOScale(scaleFactor, tweenDuration);
         return target;
     }
-    
+
+    public static Transform TweenScaleShrink(this Transform target, float maxScale, float minScale = 0f,
+        float tweenDuration = 0.5f, [CanBeNull] Action onComplete = null)
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(target.DOScale(maxScale, tweenDuration / 2).From(1f));
+        sequence.Append(target.DOScale(minScale, tweenDuration / 2));
+        sequence.OnComplete(() => onComplete?.Invoke());
+        return target;
+    }
+
     public static Transform PunchScale(this Transform target, float scaleFactor = 1f, float tweenDuration = 0.5f)
     {
         // target.DOScale(scaleFactor, tweenDuration);

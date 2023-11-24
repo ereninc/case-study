@@ -15,7 +15,7 @@ public class LevelController : Singleton<LevelController>
 
     [SerializeField] private List<LevelModel> levels;
 
-    public LevelModel ActiveLevel { get; private set; }
+    [ShowInInspector]public LevelModel ActiveLevel { get; private set; }
 
     public override void Initialize()
     {
@@ -25,7 +25,11 @@ public class LevelController : Singleton<LevelController>
 
     private void LoadLevel()
     {
-        ActiveLevel = levels[PlayerDataModel.Data.LevelIndex];
+        var index = 0;
+        LevelModel spawnedLevel = Instantiate(levels[0]);
+        ActiveLevel = spawnedLevel;
+        ActiveLevel.SetActiveGameObject(true);
+        // ActiveLevel = levels[PlayerDataModel.Data.LevelIndex];
     }
 
     public void NextLevel()
@@ -38,7 +42,7 @@ public class LevelController : Singleton<LevelController>
     }
 
     [Button]
-    public void E_GetAllLevels()
+    public void Editor_GetAllLevels()
     {
         Object[] levelPrefabs = Resources.LoadAll<GameObject>(_levelsFolder);
         foreach (var obj in levelPrefabs)
