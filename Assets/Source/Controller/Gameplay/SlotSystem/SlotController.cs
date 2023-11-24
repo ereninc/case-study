@@ -11,6 +11,7 @@ public class SlotController : ControllerBaseModel
     [SerializeField] private float xOffset;
     [SerializeField] private Vector3 startPosition;
     [SerializeField] private Transform draggableParent;
+    [SerializeField] private SlotType slotType;
     [ShowInInspector] private List<IDraggable> Draggables;
 
     [Button]
@@ -19,6 +20,15 @@ public class SlotController : ControllerBaseModel
         if (Draggables.Count >= objectCount) return;
         Rope rope = RopeFactory.Instance.SpawnObject<Rope>();
         IDraggable draggable = rope.GetComponent<IDraggable>();
+        AddDraggable(draggable);
+    }
+
+    [Button]
+    public void Editor_SpawnProduct(ProductTypes type)
+    {
+        if (Draggables.Count >= objectCount) return;
+        Product product = ProductFactory.Instance.SpawnObject<Product>(type);
+        IDraggable draggable = product.GetComponent<IDraggable>();
         AddDraggable(draggable);
     }
 
@@ -37,7 +47,8 @@ public class SlotController : ControllerBaseModel
     {
         for (int i = 0; i < Draggables.Count; i++)
         {
-            Vector3 position = startPosition + new Vector3(i * xOffset, 0f, 0f);
+            // Vector3 position = startPosition + new Vector3(i * xOffset, 0f, 0f);
+            Vector3 position = transform.localPosition + new Vector3(i * xOffset, 0f, 0f) + startPosition;
             switch (type)
             {
                 case PositioningType.Instant:
@@ -70,12 +81,16 @@ public class SlotController : ControllerBaseModel
     {
         SlotActions.OnDraggableSpawned += AddDraggable;
         SlotActions.OnDraggableUsed += RemoveDraggable;
+        if (slotType == SlotType.Product)
+            SewingActions.OnProductReached += AddDraggable;
     }
 
     private void OnDisable()
     {
         SlotActions.OnDraggableSpawned -= AddDraggable;
         SlotActions.OnDraggableUsed -= RemoveDraggable;
+        if (slotType == SlotType.Product)
+            SewingActions.OnProductReached -= AddDraggable;
     }
 }
 
@@ -83,4 +98,10 @@ public enum PositioningType
 {
     Instant,
     Slide
+}
+
+public enum SlotType
+{
+    Rope,
+    Product
 }

@@ -46,7 +46,7 @@ public class AreaButtonController : Singleton<AreaButtonController>, IAreaStateO
         return paintAreaRectTransform;
     }
 
-    private void OnProductReached(Product product)
+    private void OnProductReached(IDraggable draggable)
     {
         paintAreaButton.transform.PunchScale();
     }

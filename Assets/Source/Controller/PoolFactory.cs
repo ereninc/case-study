@@ -5,7 +5,7 @@ using UnityEngine;
 public class PoolFactory : Singleton<PoolFactory>
 {
     [Header("SETTINGS")] 
-    [SerializeField] private bool isDynamic;
+    [SerializeField] private bool isDynamic; //I DID NOT IMPLEMENTED YET
     
     [Space(12)]
     [Header("POOLS")]
@@ -21,12 +21,7 @@ public class PoolFactory : Singleton<PoolFactory>
     private PoolModel SelectPool(PoolEnum pool)
     {
         var selectedPool = pools.FirstOrDefault(x => x.poolEnum == pool);
-        if (selectedPool != null)
-        {
-            return selectedPool.poolModel;
-        }
-
-        return null;
+        return selectedPool?.poolModel;
     }
 }
 

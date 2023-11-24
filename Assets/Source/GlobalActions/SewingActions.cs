@@ -16,7 +16,6 @@ public static class SewingActions
     #region [ OnProduct Sewed ]
 
     public static Action OnProductCreated;
-
     public static void Invoke_OnProductCreated()
     {
         OnProductCreated?.Invoke();
@@ -26,7 +25,7 @@ public static class SewingActions
 
     #region [ OnProduct Moved To PaintArea ]
 
-    public static Action<Product> OnProductReached;
+    public static Action<IDraggable> OnProductReached;
     public static void Invoke_OnProductReached(Product reachedProduct)
     {
         OnProductReached?.Invoke(reachedProduct);

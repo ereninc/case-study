@@ -98,3 +98,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sewingData: {fileID: 11400000, guid: abfcd5c1bdfb22548bdd65040cd84261, type: 2}
   meshRenderer: {fileID: 6507711573313790521}
+  paintableMaterial: {fileID: 2100000, guid: 03f35344c7033d34fa242dbcbc0fb275, type: 2}

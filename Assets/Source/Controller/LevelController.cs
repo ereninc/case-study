@@ -2,22 +2,28 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class LevelController : ControllerBaseModel
+public class LevelController : Singleton<LevelController>
 {
-    public LevelModel ActiveLevel;
-    [SerializeField] List<LevelModel> levels;
+    [Header("Folders/Prefixes")] 
+    private readonly string _levelsFolder = "Levels";
+    [ShowInInspector] private int _levelCount = 0;
+
+    [SerializeField] private List<LevelModel> levels;
+
+    public LevelModel ActiveLevel { get; private set; }
 
     public override void Initialize()
     {
         base.Initialize();
-        loadLevel();
+        LoadLevel();
     }
 
-    private void loadLevel()
+    private void LoadLevel()
     {
         ActiveLevel = levels[PlayerDataModel.Data.LevelIndex];
     }
@@ -25,7 +31,26 @@ public class LevelController : ControllerBaseModel
     public void NextLevel()
     {
         PlayerDataModel.Data.Level++;
-        PlayerDataModel.Data.LevelIndex = PlayerDataModel.Data.LevelIndex + 1 < levels.Count ? PlayerDataModel.Data.LevelIndex + 1 : 0;
+        PlayerDataModel.Data.LevelIndex = PlayerDataModel.Data.LevelIndex + 1 < levels.Count
+            ? PlayerDataModel.Data.LevelIndex + 1
+            : 0;
         PlayerDataModel.Data.Save();
+    }
+
+    [Button]
+    public void E_GetAllLevels()
+    {
+        Object[] levelPrefabs = Resources.LoadAll<GameObject>(_levelsFolder);
+        foreach (var obj in levelPrefabs)
+        {
+            GameObject levelPrefab = (GameObject)obj;
+            LevelModel levelModel = levelPrefab.GetComponent<LevelModel>();
+
+            if (levelModel != null)
+            {
+                levels.Add(levelModel);
+            }
+        }
+        _levelCount = levels.Count;
     }
 }

@@ -49,7 +49,7 @@ public class Product : TransformObject, IDraggable
         });
     }
 
-    private void OnReachedPaintButton(Product product)
+    private void OnReachedPaintButton(IDraggable product)
     {
         if (product != this) return;
         var sequence = DOTween.Sequence();
@@ -62,7 +62,7 @@ public class Product : TransformObject, IDraggable
     {
         //SEND IT TO PAINT SLOTS
         PaintingActions.Invoke_OnEnterPaintingArea(this);
-        SetDeactive();
+        _visualModel.OnPaintArea();
     }
 
     #endregion
