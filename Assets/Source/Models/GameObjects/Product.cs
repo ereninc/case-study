@@ -16,16 +16,21 @@ public class Product : DraggableBaseModel
         _visualModel.SetVisual(productParent);
     }
 
-    public void OnStartSewing(float sewingDuration)
+    #region [ Sewing Area ]
+    
+    public void OnStartSewing()
     {
         IsCompleted = false;
-        _visualModel.OnStartSewing(sewingDuration, () =>
+        _visualModel.OnStartSewing(() =>
         {
             SewingActions.OnProductCreated?.Invoke();
             OnCompleted?.Invoke();
             IsCompleted = true;
         });
     }
+
+    #endregion
+    
 
     #region [ Paint Area ]
 
@@ -56,6 +61,12 @@ public class Product : DraggableBaseModel
         _visualModel.OnPaintArea();
     }
 
+    private void OnStartPainting(Product product, ColorData colorData)
+    {
+        if (product != this) return;
+        _visualModel.OnStartPainting(colorData.color);
+    }
+
     #endregion
 
     #region [ Subscriptions ]
@@ -63,25 +74,34 @@ public class Product : DraggableBaseModel
     private void OnEnable()
     {
         SewingActions.OnProductReached += OnReachedPaintButton;
+        PaintingActions.OnEnterPaintingCauldron += OnStartPainting;
     }
 
     private void OnDisable()
     {
         SewingActions.OnProductReached -= OnReachedPaintButton;
+        PaintingActions.OnEnterPaintingCauldron -= OnStartPainting;
     }
 
     #endregion
 
     #region [ IDraggable ]
 
+    public override void OnPointerDown()
+    {
+        base.OnPointerDown();
+        OnSelect();
+    }
+
     public override void OnPointerUp(DraggableSlot slot, float duration)
     {
-        IsDragging = false;
+        base.OnPointerUp(slot, duration);
         OnPlaced(slot, duration);
     }
 
     public override void OnSelect()
     {
+        base.OnSelect();
         if (IsCompleted)
         {
             OnMovePaintArea();
@@ -92,16 +112,21 @@ public class Product : DraggableBaseModel
             draggableSettingsData.placeMovementDuration);
     }
 
+    public override void OnDeselect()
+    {
+        base.OnDeselect();
+        Transform.TweenScale();
+    }
+
     private void OnPlaced(DraggableSlot targetSlot, float duration)
     {
         Transform.SetParent(targetSlot.Transform);
-        // visualModel.OnPlaced();
-        Transform.ResetLocalTween(draggableSettingsData.placedScaleFactor, draggableSettingsData.placeMovementDuration)
-            .OnComplete(() =>
-            {
-                targetSlot.OnItemPlaced?.Invoke();
-                OnStartSewing(duration);
-            });
+        //SET TIMER AND PARTICLE - ANIMATION STUFF
+        _visualModel.OnPlaced();
+        Transform.DOLocalJump(Vector3.zero, 0.75f, 1, draggableSettingsData.placeMovementDuration).OnComplete(() =>
+        {
+            targetSlot.OnItemPlaced?.Invoke();
+        });
     }
 
     #endregion

@@ -44,6 +44,7 @@ public class LevelController : Singleton<LevelController>
     [Button]
     public void Editor_GetAllLevels()
     {
+        levels.Clear();
         Object[] levelPrefabs = Resources.LoadAll<GameObject>(_levelsFolder);
         foreach (var obj in levelPrefabs)
         {

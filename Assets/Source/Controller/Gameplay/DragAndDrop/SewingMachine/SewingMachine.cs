@@ -5,6 +5,8 @@ using UnityEngine;
 public class SewingMachine : DroppableBaseModel
 {
     [SerializeField] private SewingMachineVisual visualModel;
+    [SerializeField] private BoxCollider boxCollider;
+
 
     private ProductTypes _currentType;
     private ProductDataSO _productData;
@@ -27,9 +29,10 @@ public class SewingMachine : DroppableBaseModel
 
     private void OnStartSewing()
     {
+        boxCollider.enabled = false;
         _product = ProductFactory.Instance.SpawnObject<Product>(_productData.type);
         _product.Transform.SetLocalPositionAndRotation(productObject.position, productObject.localRotation);
-        _product.OnStartSewing(_productData.sewingTime);
+        _product.OnStartSewing();
         _product.OnCompleted += OnCompleteSewing;
     }
 
@@ -44,6 +47,7 @@ public class SewingMachine : DroppableBaseModel
     {
         if (_product != product) return;
         _product = null;
+        boxCollider.enabled = true;
         visualModel.ToggleIcon(false);
     }
 

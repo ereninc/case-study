@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using DG.Tweening.Plugins.Options;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,7 +9,9 @@ public class ProductVisualModel : TransformObject
     [SerializeField] private SewingDataSO sewingData;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Material paintableMaterial;
-    
+    [SerializeField] private ProductDataSO productDataSO;
+    private MaterialPropertyBlock _propertyBlock;
+
     public void SetVisual(Transform product)
     {
         Transform.SetParent(product);
@@ -16,13 +19,14 @@ public class ProductVisualModel : TransformObject
         SetRenderer(sewingData.startAmount);
     }
 
-    public void OnStartSewing(float duration, Action onComplete)
+    public void OnStartSewing(Action onComplete)
     {
         float process = sewingData.startAmount;
         SetRenderer(process);
 
         var sewingSequence = DOTween.Sequence();
-        sewingSequence.Append(DOTween.To(() => process, x => process = x, sewingData.endAmount, duration));
+        sewingSequence.Append(DOTween.To(() => process, x => process = x, sewingData.endAmount,
+            productDataSO.sewingTime));
         sewingSequence.OnUpdate(() => SetRenderer(process));
         sewingSequence.OnComplete(() =>
         {
@@ -37,16 +41,30 @@ public class ProductVisualModel : TransformObject
     }
 
     #region [ OnPaintArea Visual ]
-    
+
     public void OnPaintArea()
     {
-        Transform.localScale = Vector3.one * 1.75f;
+        Transform.localScale = Vector3.one * 1.5f;
         Transform.localRotation = Quaternion.Euler(45, -15, 0);
     }
 
     private void SetPaintableMaterial()
     {
-        meshRenderer.material = paintableMaterial;
+        Material paintable = new Material(paintableMaterial);
+        meshRenderer.material = paintable;
+    }
+
+    public void OnPlaced()
+    {
+        Transform.localScale = Vector3.one;
+        Transform.localRotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void OnStartPainting(Color color)
+    {
+        // Debug.Log(meshRenderer.material.name);
+        // MaterialPropertyBlock block = new MaterialPropertyBlock();
+        meshRenderer.material.DOColor(color, productDataSO.paintingTime);
     }
 
     #endregion

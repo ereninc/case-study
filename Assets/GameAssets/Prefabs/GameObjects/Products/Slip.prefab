@@ -99,3 +99,4 @@ MonoBehaviour:
   sewingData: {fileID: 11400000, guid: 22a5a8c24a4dc234ba92c19f2dccb7d4, type: 2}
   meshRenderer: {fileID: 2996161265415871025}
   paintableMaterial: {fileID: 2100000, guid: 03f35344c7033d34fa242dbcbc0fb275, type: 2}
+  productDataSO: {fileID: 11400000, guid: 505e7d671b4094844b2ca820e8d21f37, type: 2}

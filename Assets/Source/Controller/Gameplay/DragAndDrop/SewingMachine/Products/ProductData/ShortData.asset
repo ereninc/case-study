@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 301bff5c55c03994aa3a8d5e68d956bf, type: 3}
-  m_Name: PantData
+  m_Name: ShortData
   m_EditorClassIdentifier: 
   type: 3
   icon: {fileID: 21300000, guid: 061414766444d4d078f6f4a17b0f255e, type: 3}

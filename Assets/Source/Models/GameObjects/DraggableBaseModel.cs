@@ -1,37 +1,33 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DraggableBaseModel : TransformObject, IDraggable
 {
-    protected bool IsDragging = false;
+    private bool _isDragging = false;
+    
     protected bool IsCompleted;
     public Transform productParent;
     
     public virtual void OnPointerDown()
     {
-        IsDragging = false;
-        OnSelect();
+        _isDragging = false;
     }
 
     public virtual void OnPointerUpdate()
     {
-        if (!IsDragging) return;
-        Transform.position = Input.mousePosition;
+        if (!_isDragging) return;
+        // Transform.position = Input.mousePosition;
     }
 
     public virtual void OnPointerUp(DraggableSlot slot, float duration)
     {
-        IsDragging = false;
+        _isDragging = false;
     }
 
     public virtual void OnSelect()
     {
-        Debug.Log("OnSelect");
     }
-
+    
     public virtual void OnDeselect()
     {
-        Transform.TweenScale();
-        Debug.Log("OnDeselect");
     }
 }

@@ -19,7 +19,7 @@ public class Rope : TransformObject, IDraggable
     public void OnPointerUpdate()
     {
         if (!_isDragging) return;
-        Transform.position = Input.mousePosition;
+        // Transform.position = Input.mousePosition;
     }
 
     public void OnPointerUp(DraggableSlot slot, float duration = 0f)
