@@ -72,17 +72,17 @@ public class Product : DraggableBaseModel
         SlotActions.Invoke_OnDraggableUsed(this);
         boxCollider.enabled = false;
     }
+    
+    private void SetColorData(ColorData data)
+    {
+        _colorData = data;
+    }
 
     private void OnStartPainting(Product product, DraggableSlot slot)
     {
         if (product != this) return;
         stateController.SetProduction();
         _productModel.OnStartedPainting(_colorData.color).OnComplete(OnPaintingFinished);
-    }
-
-    private void SetColorData(ColorData data)
-    {
-        _colorData = data;
     }
 
     private void OnPaintingFinished()
@@ -107,8 +107,7 @@ public class Product : DraggableBaseModel
 
     private void SellAnimation()
     {
-        Transform.SetParent(null);
-        Transform.DOMove(new Vector3(6, 0f, -0.5f), 1f).OnComplete(()=>
+        Transform.DOMove(new Vector3(6, -0.15f, -1f), 1f).OnComplete(()=>
         {
             _productModel.OnSellPainted();
             OnReturnPool();

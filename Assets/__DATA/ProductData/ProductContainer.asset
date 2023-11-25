@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb4cc6539652f04ca990d086e16bcff, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a00743f047b4a547b6f07c8249b3654, type: 3}
   m_Name: ProductContainer
   m_EditorClassIdentifier: 
-  products:
-  - type: 0
-    prefab: {fileID: 8165874881718964134, guid: e050449e168b1b84d8ffdfbfc4ade660, type: 3}
-  - type: 1
-    prefab: {fileID: 6880805834644331426, guid: 811e2ae6b0df44649832e7d7a4ebee26, type: 3}
-  - type: 2
-    prefab: {fileID: 4491519749326849719, guid: 15536124ee67948449815be346a94af4, type: 3}
-  - type: 3
-    prefab: {fileID: 5589420769977548479, guid: d55f321620d075f4da81da9db3370b96, type: 3}
+  productContainer:
+  - {fileID: 11400000, guid: 0bc984f1b6d94c2429a9a12b8c093c59, type: 2}
+  - {fileID: 11400000, guid: 182bb0c7a1ec98d48a3e184d32cfea46, type: 2}
+  - {fileID: 11400000, guid: 505e7d671b4094844b2ca820e8d21f37, type: 2}
+  - {fileID: 11400000, guid: 755e3694c6fe0d24486648a84faa0c30, type: 2}
