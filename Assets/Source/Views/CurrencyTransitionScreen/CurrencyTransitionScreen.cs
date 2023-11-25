@@ -85,12 +85,11 @@ public class CurrencyTransitionScreen : ControllerBaseModel
             () => targetTransform.DOPunchScale(
                 Vector3.one * Mathf.Clamp(targetBumpAmount, 0,
                     1 + targetBumpAmount + .1f - targetTransform.localScale.x), .2f, 1, 0));
-        DOVirtual.DelayedCall(particleSequence.Duration(), () => OnComplete(increaseAmount));
+        DOVirtual.DelayedCall(particleSequence.Duration(), OnComplete);
     }
 
-    private void OnComplete(int increaseAmount)
+    private void OnComplete()
     {
-        UserPrefs.IncreaseCoinAmount(increaseAmount);
         EventController.Invoke_OnCoinUpdated();
     }
 
@@ -110,7 +109,7 @@ public class CurrencyTransitionScreen : ControllerBaseModel
     public void EmitInPosition(int increaseAmount, Vector3 position, int moneyAmount = 1)
     {
         Vector3 screenPos = CameraController.main.WorldToScreenPoint(position);
-        EmitParticlesInTimePosition(moneyAmount, 0.1f, screenPos, increaseAmount);
+        EmitParticlesInTimePosition(count: moneyAmount, 0.1f, screenPos, increaseAmount: increaseAmount);
     }
 
     private void OnEnable()

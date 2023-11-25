@@ -11,4 +11,5 @@ public class ProductDataSO : ScriptableObject
     public float sewingTime;
     public float paintingTime;
     public int incomeAmount;
+    public int sellIconCount;
 }

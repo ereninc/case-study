@@ -18,3 +18,4 @@ MonoBehaviour:
   sewingTime: 4
   paintingTime: 4
   incomeAmount: 50
+  sellIconCount: 1

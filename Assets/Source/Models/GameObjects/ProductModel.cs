@@ -53,7 +53,7 @@ public class ProductModel : TransformObject
 
     public void OnSellPainted()
     {
-        EventController.Invoke_OnProductSell(productDataSO.incomeAmount, Transform.position, 1);
+        EventController.Invoke_OnProductSell(productDataSO.incomeAmount, Transform.position, productDataSO.sellIconCount);
     }
 
     #endregion

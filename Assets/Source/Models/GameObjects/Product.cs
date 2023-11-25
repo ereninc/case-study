@@ -49,7 +49,7 @@ public class Product : DraggableBaseModel
         sequence.Append(Transform.DOScale(1f, 0.15f));
         sequence.OnComplete(() =>
         {
-            Transform.DOMove(worldPosition, 0.35f).OnComplete(() => SewingActions.Invoke_OnProductReached(this));
+            Transform.DOMove(worldPosition, 0.4f).OnComplete(() => SewingActions.Invoke_OnProductReached(this));
         });
     }
 

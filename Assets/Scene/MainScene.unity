@@ -6532,19 +6532,19 @@ MonoBehaviour:
   emissionAngle: 360
   targetTransform: {fileID: 246085266}
   targetBumpAmount: 0.2
-  endScale: 0.8
-  maxScale: 1.6
-  minRadius: 10
-  maxRadius: 20
+  endScale: 1.4
+  maxScale: 2
+  minRadius: 25
+  maxRadius: 50
   spawnEase: 15
   spawnTime: 0.25
   waitTime: 0.3
   moveEase: 5
   moveTime: 1
   scaleUpDelay: 0.15
-  scaleUpTime: 0.5
+  scaleUpTime: 0.35
   scaleDownDelay: 0.35
-  scaleDownTime: 0.5
+  scaleDownTime: 0.35
 --- !u!1 &1748560970
 GameObject:
   m_ObjectHideFlags: 0
