@@ -120,8 +120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 4
-  hoverWidth: 4
+  outlineWidth: 6
+  hoverWidth: 6
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 6979083221930238781, guid: 7cb2f8e17cb114795a5e6a15a4384ec9, type: 3}

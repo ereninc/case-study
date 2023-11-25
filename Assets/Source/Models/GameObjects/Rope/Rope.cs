@@ -25,7 +25,6 @@ public class Rope : DraggableBaseModel
     {
         modelParent.TweenScale(draggableSettingsData.selectedScaleMultiplier,
             draggableSettingsData.placeMovementDuration);
-        modelParent.DOPunchRotation(Vector3.one * 1.2f, 0.25f, 1, 0.25f);
         ropeModel.ToggleIndicatorColor(true);
         base.OnSelect();
     }

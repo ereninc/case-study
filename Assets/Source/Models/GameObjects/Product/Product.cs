@@ -46,15 +46,7 @@ public class Product : DraggableBaseModel
     {
         Vector3 worldPosition = TransitionExtension.UIToWorldPosition(AreaButtonController.Instance.GetRect(),
             CameraController.Instance.uiCamera, offset);
-        var sequence = DOTween.Sequence();
-        sequence.Append(Transform.DOLocalMove(new Vector3(0, -0.35f, -1), 0.15f));
-        sequence.Join(Transform.DOLocalRotate(Vector3.zero, 0.15f));
-        sequence.Append(Transform.DOScale(1.2f, 0.15f).From(1f));
-        sequence.Append(Transform.DOScale(1f, 0.15f));
-        sequence.OnComplete(() =>
-        {
-            Transform.DOMove(worldPosition, 0.75f).OnComplete(() => SewingActions.Invoke_OnProductReached(this));
-        });
+        Transform.MoveToButton(worldPosition, () => SewingActions.Invoke_OnProductReached(this));
     }
 
     private void OnReachedPaintButton(IDraggable product)

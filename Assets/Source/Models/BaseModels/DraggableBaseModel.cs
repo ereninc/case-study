@@ -25,6 +25,7 @@ public class DraggableBaseModel : TransformObject, IDraggable
 
     public virtual void OnSelect()
     {
+        AudioController.Instance.PlaySound(AudioController.Sound.Select);
     }
     
     public virtual void OnDeselect()
