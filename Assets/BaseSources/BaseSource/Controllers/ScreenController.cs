@@ -38,6 +38,7 @@ public class ScreenController : Singleton<ScreenController>, IGameStateObserver
             {
                 activeScreen = nextScreen;
                 activeScreen.Show();
+                activeScreen.Initialize();
             }
         }
         else
@@ -45,6 +46,7 @@ public class ScreenController : Singleton<ScreenController>, IGameStateObserver
             activeScreen.Hide();
             activeScreen = nextScreen;
             activeScreen.Show();
+            activeScreen.Initialize();
         }
     }
 

@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 7250216861184262897}
   - component: {fileID: 7250216861184262898}
   m_Layer: 0
-  m_Name: Level1
+  m_Name: Level2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ropeSlotController: {fileID: 7250216861179987798}
   productSlotController: {fileID: 7250216860433034125}
-  targetProductData: {fileID: 11400000, guid: 2d94068df40458149bce2313cdc84225, type: 2}
+  targetProductData: {fileID: 11400000, guid: ff672329cb6ee5c43a14f19072cfb431, type: 2}
 --- !u!1 &7250216861203481631
 GameObject:
   m_ObjectHideFlags: 0

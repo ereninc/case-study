@@ -1,27 +1,74 @@
-using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class TargetProductController : ControllerBaseModel
+public class TargetProductController : Singleton<TargetProductController>
 {
     [SerializeField] private List<TargetSlot> slots;
-    [SerializeField] private TargetProductDataSO targetProductData;
     [SerializeField] private ColorDataSO colorData;
     [SerializeField] private ProductContainerSO productContainer;
-    
+    private int _successfulProductCount = 0;
+
     public override void Initialize()
     {
         base.Initialize();
         SetTargetSlots();
     }
 
-    private void SetTargetSlots()
+    [Button]
+    public void SetTargetSlots()
     {
-        var targetProductList = targetProductData.targetProducts;
-        for (int i = 0; i < targetProductList.Count; i++)
+        var currentList = LevelController.ActiveLevel.targetProductData.targetProducts;
+        for (int i = 0; i < currentList.Count; i++)
         {
-            var currentData = targetProductData.targetProducts[i];
-            slots[i].Initialize(targetProductData.GetSprite(productContainer, currentData.productType), targetProductData.GetColor(colorData, currentData.colorType));
+            var currentData = currentList[i];
+            slots[i].Initialize(LevelController.ActiveLevel.targetProductData.GetSprite(productContainer, currentData.productType),
+                LevelController.ActiveLevel.targetProductData.GetColor(colorData, currentData.colorType));
         }
     }
+
+    private void CheckSoldProduct(Product product)
+    {
+        var data = new TargetProductData
+        {
+            colorType = product.GetColor.type,
+            productType = product.GetType
+        };
+
+        var productList = LevelController.ActiveLevel.targetProductData.targetProducts;
+        for (int i = 0; i < productList.Count; i++)
+        {
+            if (data.colorType == productList[i].colorType &&
+                data.productType == productList[i].productType)
+            {
+                if (slots[i].IsReached) continue;
+                CheckGameState();
+                slots[i].OnSold();
+                break;
+            }
+        }
+    }
+
+    private void CheckGameState()
+    {
+        _successfulProductCount++;
+        if (_successfulProductCount >= LevelController.ActiveLevel.targetProductData.targetProducts.Count)
+        {
+            GameController.SetGameState(GameStates.Win);
+        }
+    }
+
+    #region [ Subscriptions ]
+
+    private void OnEnable()
+    {
+        ProductActions.OnSellProduct += CheckSoldProduct;
+    }
+
+    private void OnDisable()
+    {
+        ProductActions.OnSellProduct -= CheckSoldProduct;
+    }
+
+    #endregion
 }

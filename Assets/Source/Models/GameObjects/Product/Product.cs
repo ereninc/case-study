@@ -12,6 +12,8 @@ public class Product : DraggableBaseModel
     private ProductModel _productModel;
     private ColorData _colorData;
 
+    public ColorData GetColor => _colorData;
+    public ProductTypes GetType => _productModel.GetType;
     public Action OnCompleted;
 
     public void OnInitialize(ProductModel visualModel)

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MEC;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +11,7 @@ public class GameController : Singleton<GameController>
 {
     private readonly ObservedValue<GameStates> GameStatus = new(GameStates.Loading);
     private IList<IGameStateObserver> _gameStatObservers;
-    
+
     public GameStates currentGameState;
 
     public override void Initialize()
@@ -24,7 +26,7 @@ public class GameController : Singleton<GameController>
     public void SetGameState(GameStates targetState)
     {
         if (GameStatus.Value == targetState) return;
-        GameStatus.Value = targetState;
+        ChangeState(targetState);
     }
 
     public void AddListener(IGameStateObserver gameStateObserver)
@@ -45,6 +47,16 @@ public class GameController : Singleton<GameController>
         {
             if (_gameStatObservers[i] != null) _gameStatObservers[i].OnGameStateChanged();
         }
+    }
+
+    private void ChangeState(GameStates targetState)
+    {
+        if (targetState == GameStates.Win)
+        {
+            Timing.CallDelayed(2f, () => GameStatus.Value = targetState);
+            return;
+        }
+        GameStatus.Value = targetState;
     }
 
     #region [ Subscriptions ]

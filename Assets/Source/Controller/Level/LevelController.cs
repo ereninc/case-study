@@ -1,21 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
+using MEC;
 using UnityEngine;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class LevelController : Singleton<LevelController>
 {
-    [Header("Folders/Prefixes")] 
-    private readonly string _levelsFolder = "Levels";
+    [Header("Folders/Prefixes")] private readonly string _levelsFolder = "Levels";
     [ShowInInspector] private int _levelCount = 0;
 
+    [SerializeField] private int loopLevelStartIndex;
     [SerializeField] private List<LevelModel> levels;
 
-    [ShowInInspector]public LevelModel ActiveLevel { get; private set; }
+    [ShowInInspector] public LevelModel ActiveLevel { get; private set; }
 
     public override void Initialize()
     {
@@ -25,8 +27,8 @@ public class LevelController : Singleton<LevelController>
 
     private void LoadLevel()
     {
-        var index = 0;
-        LevelModel spawnedLevel = Instantiate(levels[0]);
+        var index = UserPrefs.GetCurrentLevel();
+        LevelModel spawnedLevel = Instantiate(levels[index]);
         ActiveLevel = spawnedLevel;
         ActiveLevel.SetActiveGameObject(true);
         // ActiveLevel = levels[PlayerDataModel.Data.LevelIndex];
@@ -34,11 +36,18 @@ public class LevelController : Singleton<LevelController>
 
     public void NextLevel()
     {
-        PlayerDataModel.Data.Level++;
-        PlayerDataModel.Data.LevelIndex = PlayerDataModel.Data.LevelIndex + 1 < levels.Count
-            ? PlayerDataModel.Data.LevelIndex + 1
-            : 0;
-        PlayerDataModel.Data.Save();
+        int level = UserPrefs.GetCurrentLevel();
+        if (level < _levelCount)
+        {
+            level++;
+            UserPrefs.SetLevel(level);
+        }
+        else
+        {
+            level = loopLevelStartIndex;
+            UserPrefs.SetLevel(level);
+        }
+        Timing.CallDelayed(0.5f, () => SceneManager.LoadScene(0));
     }
 
     [Button]
@@ -56,6 +65,7 @@ public class LevelController : Singleton<LevelController>
                 levels.Add(levelModel);
             }
         }
+
         _levelCount = levels.Count;
     }
 }

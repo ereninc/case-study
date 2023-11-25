@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using MEC;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class SlotController : ControllerBaseModel
 {
-    [SerializeField] private int objectCount;
+    [SerializeField] private SlotSettingsSO slotSettingData;
+    // [SerializeField] private int objectCount;
     [SerializeField] private float xOffset;
     [SerializeField] private Vector3 startPosition;
     [SerializeField] private Transform draggableParent;
@@ -15,18 +17,18 @@ public class SlotController : ControllerBaseModel
     [ShowInInspector] private List<IDraggable> Draggables;
 
     [Button]
-    public void Editor_SpawnRope()
+    public void SpawnRope()
     {
-        if (Draggables.Count >= objectCount) return;
+        if (Draggables.Count >= slotSettingData.maxSlotCount) return;
         Rope rope = RopeFactory.Instance.SpawnObject<Rope>();
         IDraggable draggable = rope.GetComponent<IDraggable>();
         AddDraggable(draggable);
     }
 
     [Button]
-    public void Editor_SpawnProduct(ProductTypes type)
+    public void SpawnProduct(ProductTypes type)
     {
-        if (Draggables.Count >= objectCount) return;
+        if (Draggables.Count >= slotSettingData.maxSlotCount) return;
         Product product = ProductFactory.Instance.SpawnObject<Product>(type);
         IDraggable draggable = product.GetComponent<IDraggable>();
         AddDraggable(draggable);
@@ -65,7 +67,7 @@ public class SlotController : ControllerBaseModel
 
     private void AddDraggable(IDraggable newDraggable)
     {
-        if (Draggables.Count >= objectCount) return;
+        if (Draggables.Count >= slotSettingData.maxSlotCount) return;
         Draggables.Add(newDraggable);
         ArrangeDraggables(PositioningType.Instant);
     }
@@ -76,7 +78,17 @@ public class SlotController : ControllerBaseModel
         {
             Draggables.Remove(draggable);
             ArrangeDraggables(PositioningType.Slide);
+            if (slotType == SlotType.Rope)
+            {
+                RespawnRope();
+            }
         }
+    }
+
+    private void RespawnRope()
+    {
+        var randomTime = UnityEngine.Random.Range(slotSettingData.respawnTime.x, slotSettingData.respawnTime.y);
+        Timing.CallDelayed(randomTime, SpawnRope);
     }
 
     private void OnEnable()

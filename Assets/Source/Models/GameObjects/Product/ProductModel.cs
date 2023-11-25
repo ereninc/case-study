@@ -7,6 +7,8 @@ public class ProductModel : TransformObject
     [SerializeField] private SewingDataSO sewingData;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private ProductDataSO productDataSO;
+    
+    public ProductTypes GetType => productDataSO.type;
 
     public void SetVisual(Transform product)
     {
@@ -14,7 +16,7 @@ public class ProductModel : TransformObject
         Transform.SetPositionAndRotation(Vector3.zero, product.transform.localRotation);
         SetRenderer(sewingData.startAmount);
     }
-
+    
     public void OnStartSewing(Action onComplete)
     {
         float process = sewingData.startAmount;
