@@ -1032,9 +1032,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db630563e5b77f478c5506e32e6cfa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggableSlot: {fileID: 6023289069011694688}
+  productObject: {fileID: 6023289067987399542}
   visualModel: {fileID: 6023289068989769382}
-  draggableObjectParent: {fileID: 6023289069011694688}
-  productObjectPoint: {fileID: 6023289067987399542}
   testData: {fileID: 11400000, guid: 0bc984f1b6d94c2429a9a12b8c093c59, type: 2}
 --- !u!114 &6023289068989769382
 MonoBehaviour:
@@ -1106,7 +1106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac89cb9b5c1c0143a190f4a0b70d45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 1
 --- !u!1 &6023289069050772415
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class DragDropController : Singleton<DragDropController>
@@ -50,20 +51,18 @@ public class DragDropController : Singleton<DragDropController>
             }
 
             _draggableObject?.OnDeselect();
-            if (_hit.transform.TryGetComponent(out _draggableObject)) OnObjectSelected(_draggableObject);
+            if (_hit.transform.TryGetComponent(out _draggableObject)) OnObjectSelected();
         }
     }
 
-    private void OnObjectSelected(IDraggable selectableObject)
+    private void OnObjectSelected()
     {
-        // Debug.Log("CLICKED to -> " + selectableObject);
         _draggableObject.OnPointerDown();
     }
 
     private void OnSlotSelected(IDroppable selectableSlot)
     {
         if (_draggableObject == null) return;
-        // Debug.Log("DROPPED to -> " + selectableSlot);
         selectableSlot.OnDrop(_draggableObject);
         _draggableObject = null;
     }

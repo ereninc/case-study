@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaintCauldron : MonoBehaviour
+public class PaintCauldron : DroppableBaseModel
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private PaintCauldronVisualModel visualModel;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private ColorData _colorData;
 }

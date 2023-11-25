@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3986,63 +3986,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6608095291812642626, guid: 99bdb95679809fd4289519ff2e346903, type: 3}
   m_PrefabInstance: {fileID: 1015829700}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1073336041
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769376, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6023289068989769379, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
-      propertyPath: m_Name
-      value: SewingMachine
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9e7a2a0c53ce97246a9a5b6be7f50d2b, type: 3}
 --- !u!1001 &1086544975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5661,7 +5604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -8301,7 +8244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2082843561
 Transform:
   m_ObjectHideFlags: 0
@@ -8346,6 +8289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555bbab6739f8da479427707dbb8d0a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: {fileID: 732984820}
 --- !u!114 &2082843564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8358,6 +8302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54218b612917cca468aadfb0830021bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggableSlot: {fileID: 720982445}
+  productObject: {fileID: 1572314685}
+  visualModel: {fileID: 2082843563}
 --- !u!1001 &2109318979
 PrefabInstance:
   m_ObjectHideFlags: 0

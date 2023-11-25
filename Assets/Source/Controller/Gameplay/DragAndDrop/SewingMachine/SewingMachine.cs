@@ -2,11 +2,9 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class SewingMachine : ObjectModel, IDroppable
+public class SewingMachine : DroppableBaseModel
 {
     [SerializeField] private SewingMachineVisual visualModel;
-    [SerializeField] private DraggableSlot draggableObjectParent;
-    [SerializeField] private Transform productObjectPoint;
 
     private ProductTypes _currentType;
     private ProductDataSO _productData;
@@ -27,24 +25,17 @@ public class SewingMachine : ObjectModel, IDroppable
         visualModel.SetVisual(_productData);
     }
 
-    public void OnDrop(IDraggable draggableObject)
-    {
-        if (!draggableObjectParent.IsEmpty) return;
-        draggableObject.OnPointerUp(draggableObjectParent, _productData.sewingTime);
-        draggableObjectParent.ToggleSlot();
-    }
-
     private void OnStartSewing()
     {
         _product = ProductFactory.Instance.SpawnObject<Product>(_productData.type);
-        _product.Transform.SetLocalPositionAndRotation(productObjectPoint.position, productObjectPoint.localRotation);
+        _product.Transform.SetLocalPositionAndRotation(productObject.position, productObject.localRotation);
         _product.OnStartSewing(_productData.sewingTime);
         _product.OnCompleted += OnCompleteSewing;
     }
 
     private void OnCompleteSewing()
     {
-        draggableObjectParent.ToggleSlot();
+        draggableSlot.ToggleSlot();
         visualModel.ToggleIcon(true);
         _product.OnCompleted -= OnCompleteSewing;
     }
@@ -60,13 +51,13 @@ public class SewingMachine : ObjectModel, IDroppable
 
     private void OnEnable()
     {
-        draggableObjectParent.OnItemPlaced += OnStartSewing;
+        draggableSlot.OnItemPlaced += OnStartSewing;
         PaintingActions.OnEnterPaintingArea += OnAvailableAgain;
     }
 
     private void OnDisable()
     {
-        draggableObjectParent.OnItemPlaced -= OnStartSewing;
+        draggableSlot.OnItemPlaced -= OnStartSewing;
         PaintingActions.OnEnterPaintingArea -= OnAvailableAgain;
     }
 

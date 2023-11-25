@@ -1,17 +1,12 @@
 using System;
 using DG.Tweening;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class Product : TransformObject, IDraggable
+public class Product : DraggableBaseModel
 {
     [SerializeField] private DraggableSettingsDataSO draggableSettingsData;
-    [SerializeField] private Transform productParent;
     [SerializeField] private Vector3 offset;
-
     private ProductVisualModel _visualModel;
-    private bool _isDragging = false;
-    private bool _isCompleted;
 
     public Action OnCompleted;
 
@@ -23,12 +18,12 @@ public class Product : TransformObject, IDraggable
 
     public void OnStartSewing(float sewingDuration)
     {
-        _isCompleted = false;
+        IsCompleted = false;
         _visualModel.OnStartSewing(sewingDuration, () =>
         {
             SewingActions.OnProductCreated?.Invoke();
             OnCompleted?.Invoke();
-            _isCompleted = true;
+            IsCompleted = true;
         });
     }
 
@@ -79,39 +74,22 @@ public class Product : TransformObject, IDraggable
 
     #region [ IDraggable ]
 
-    public void OnPointerDown()
+    public override void OnPointerUp(DraggableSlot slot, float duration)
     {
-        _isDragging = false;
-        OnSelect();
-    }
-
-    public void OnPointerUpdate()
-    {
-        if (!_isDragging) return;
-        Transform.position = Input.mousePosition;
-    }
-
-    public void OnPointerUp(DraggableSlot slot, float duration)
-    {
-        _isDragging = false;
+        IsDragging = false;
         OnPlaced(slot, duration);
     }
 
-    public void OnSelect()
+    public override void OnSelect()
     {
-        if (_isCompleted)
+        if (IsCompleted)
         {
             OnMovePaintArea();
-            _isCompleted = false;
+            IsCompleted = false;
         }
 
         Transform.TweenScale(draggableSettingsData.selectedScaleMultiplier,
             draggableSettingsData.placeMovementDuration);
-    }
-
-    public void OnDeselect()
-    {
-        Transform.TweenScale();
     }
 
     private void OnPlaced(DraggableSlot targetSlot, float duration)
