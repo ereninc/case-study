@@ -32,6 +32,7 @@ public class LevelController : Singleton<LevelController>
         LevelModel spawnedLevel = Instantiate(levels[index]);
         ActiveLevel = spawnedLevel;
         ActiveLevel.SetActiveGameObject(true);
+        ActiveLevel.Initialize();
         // ActiveLevel = levels[PlayerDataModel.Data.LevelIndex];
     }
 

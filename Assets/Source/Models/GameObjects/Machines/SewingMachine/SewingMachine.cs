@@ -10,16 +10,7 @@ public class SewingMachine : DroppableBaseModel
     private ProductTypes _currentType;
     private ProductDataSO _productData;
     private Product _product;
-
-    //CHANGE TO INITIALIZE FUNCTION FOR LEVEL DESIGN AND REMOVE TEST DATA
-    [Header("TEST DATA")] public ProductDataSO testData;
-
-    private void Start()
-    {
-        Initialize(testData);
-    }
-
-    [Button]
+    
     public void Initialize(ProductDataSO productData)
     {
         _productData = productData;

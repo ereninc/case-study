@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcfe4cfcf3945de95d12cb6fda02391, type: 3}
+  m_Name: LevelSewingMachineData
+  m_EditorClassIdentifier: 
+  sewingMachineData:
+  - {fileID: 11400000, guid: 0bc984f1b6d94c2429a9a12b8c093c59, type: 2}
+  - {fileID: 11400000, guid: 182bb0c7a1ec98d48a3e184d32cfea46, type: 2}
+  - {fileID: 11400000, guid: 755e3694c6fe0d24486648a84faa0c30, type: 2}
+  - {fileID: 11400000, guid: 505e7d671b4094844b2ca820e8d21f37, type: 2}

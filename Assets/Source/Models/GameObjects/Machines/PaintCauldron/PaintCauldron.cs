@@ -12,28 +12,12 @@ public class PaintCauldron : DroppableBaseModel
     [ShowInInspector] private ColorData _colorData;
     [ShowInInspector] private Product _product;
     [ShowInInspector] private bool _isPainting = false;
-
-
-    [Header("TEST DATA")] [SerializeField] private ColorDataSO colorDataSO; // GET THIS FROM SPAWNER
-    [SerializeField] private ColorType _colorType;
-
-    //REMOVE LATER
-    private void Start()
+    
+    public void Initialize(ColorData colorData)
     {
-        Initialize(_colorType);
-    }
-
-    public void Initialize(ColorType colorType)
-    {
-        _colorData = GetColorDataByType(colorType);
+        _colorData = colorData;
         paintCauldronModel.OnInitialize(_colorData.color);
         stateController.SetIdle();
-    }
-
-    //MOVE TO CAULDRON SETTER
-    private ColorData GetColorDataByType(ColorType type)
-    {
-        return colorDataSO.colors.FirstOrDefault(color => color.type == type);
     }
 
     public override void OnDrop(IDraggable draggableObject)

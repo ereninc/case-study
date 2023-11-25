@@ -69,6 +69,8 @@ public class DragDropController : Singleton<DragDropController>
 
     private void OnReturnObjectToPool(IDraggable draggable)
     {
+        if (_draggableObject == null) return;
+        _draggableObject.OnDeselect();
         _draggableObject = null;
     }
 
