@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class SewingMachine : DroppableBaseModel
 {
-    [SerializeField] private SewingMachineVisual visualModel;
+    [SerializeField] private SewingMachineModel sewingMachineModel;
     [SerializeField] private BoxCollider boxCollider;
-
-
+    
     private ProductTypes _currentType;
     private ProductDataSO _productData;
     private Product _product;
@@ -24,7 +23,7 @@ public class SewingMachine : DroppableBaseModel
     public void Initialize(ProductDataSO productData)
     {
         _productData = productData;
-        visualModel.SetVisual(_productData);
+        sewingMachineModel.SetVisual(_productData);
     }
 
     private void OnStartSewing()
@@ -39,7 +38,7 @@ public class SewingMachine : DroppableBaseModel
     private void OnCompleteSewing()
     {
         draggableSlot.ToggleSlot();
-        visualModel.ToggleIcon(true);
+        sewingMachineModel.ToggleIcon(true);
         _product.OnCompleted -= OnCompleteSewing;
     }
 
@@ -48,7 +47,7 @@ public class SewingMachine : DroppableBaseModel
         if (_product != product) return;
         _product = null;
         boxCollider.enabled = true;
-        visualModel.ToggleIcon(false);
+        sewingMachineModel.ToggleIcon(false);
     }
 
     #region [ Subscriptions ]

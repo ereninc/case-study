@@ -164,8 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2cd1038634f0164ca3d257e2fbb53e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  productParent: {fileID: 0}
   draggableSettingsData: {fileID: 11400000, guid: 984058c5fd3c0494e92b85c076d84353, type: 2}
-  visualModel: {fileID: 8513674794300697720}
+  ropeModel: {fileID: 8513674794300697720}
   modelParent: {fileID: 5817672478705157503}
 --- !u!114 &8513674794300697720
 MonoBehaviour:

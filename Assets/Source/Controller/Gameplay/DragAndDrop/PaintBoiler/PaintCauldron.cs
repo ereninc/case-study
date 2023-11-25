@@ -1,15 +1,16 @@
+using System;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PaintCauldron : DroppableBaseModel
 {
-    [SerializeField] private PaintCauldronVisualModel visualModel;
+    [SerializeField] private PaintCauldronModel visualModel;
     [ShowInInspector] private ColorData _colorData;
+    private Product _product;
 
 
-    [Header("TEST DATA")] 
-    [SerializeField] private ColorDataSO colorDataSO; // GET THIS FROM SPAWNER
+    [Header("TEST DATA")] [SerializeField] private ColorDataSO colorDataSO; // GET THIS FROM SPAWNER
     [SerializeField] private ColorType _colorType;
 
     //REMOVE LATER
@@ -31,7 +32,32 @@ public class PaintCauldron : DroppableBaseModel
 
     public override void OnDrop(IDraggable draggableObject)
     {
+        PaintingActions.Invoke_OnEnteredCauldron(_colorData);
         base.OnDrop(draggableObject);
-        PaintingActions.Invoke_OnEnterPaintingCauldron(null, _colorData);
+        OnStartPainting();
     }
+
+    private void OnStartPainting()
+    {
+        visualModel.OnStartedPainting(2);
+    }
+
+    private void SetProduct(Product product)
+    {
+        _product = product;
+    }
+
+    #region [ Subscriptions ]
+
+    private void OnEnable()
+    {
+        PaintingActions.OnPaintingStarted += SetProduct;
+    }
+
+    private void OnDisable()
+    {
+        PaintingActions.OnPaintingStarted -= SetProduct;
+    }
+
+    #endregion
 }

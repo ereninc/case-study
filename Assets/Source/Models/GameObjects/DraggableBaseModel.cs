@@ -30,4 +30,6 @@ public class DraggableBaseModel : TransformObject, IDraggable
     public virtual void OnDeselect()
     {
     }
+    
+    public virtual void OnPlaced(DraggableSlot slot, float duration){}
 }

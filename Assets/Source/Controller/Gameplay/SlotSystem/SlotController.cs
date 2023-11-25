@@ -52,7 +52,9 @@ public class SlotController : ControllerBaseModel
             switch (type)
             {
                 case PositioningType.Instant:
-                    ((MonoBehaviour)Draggables[i]).transform.position = position;
+                    var draggable = ((MonoBehaviour)Draggables[i]).transform;
+                    draggable.position = position;
+                    draggable.localScale = Vector3.one;
                     break;
                 case PositioningType.Slide:
                     ((MonoBehaviour)Draggables[i]).transform.DOMove(position, 0.15f);

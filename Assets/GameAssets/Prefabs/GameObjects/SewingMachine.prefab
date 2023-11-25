@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   draggableSlot: {fileID: 6023289069011694688}
   productObject: {fileID: 6023289067987399542}
-  visualModel: {fileID: 6023289068989769382}
+  sewingMachineModel: {fileID: 6023289068989769382}
   boxCollider: {fileID: 6023289068989769383}
   testData: {fileID: 11400000, guid: 0bc984f1b6d94c2429a9a12b8c093c59, type: 2}
 --- !u!114 &6023289068989769382

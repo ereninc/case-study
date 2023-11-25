@@ -5,7 +5,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class RopeVisualModel : TransformObject
+public class RopeModel : TransformObject
 {
     [Header("Indicator / Color")] 
     [SerializeField] private SpriteRenderer selectIndicator;

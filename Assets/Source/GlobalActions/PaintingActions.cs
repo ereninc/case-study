@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using UnityEngine;
 
 public static class PaintingActions
 {
@@ -18,10 +14,27 @@ public static class PaintingActions
 
     #region [ On Product Enter Painting Cauldron ]
 
-    public static Action<Product?, ColorData> OnEnterPaintingCauldron;
-    public static void Invoke_OnEnterPaintingCauldron([CanBeNull] Product product, ColorData colorData)
+    public static Action<Product> OnPaintingStarted;
+    public static void Invoke_OnPaintingStarted(Product product)
     {
-        OnEnterPaintingCauldron?.Invoke(product, colorData);
+        OnPaintingStarted?.Invoke(product);
+    }
+
+    public static Action<ColorData> OnEnteredCauldron;
+    public static void Invoke_OnEnteredCauldron(ColorData data)
+    {
+        OnEnteredCauldron?.Invoke(data);
+    }
+
+    #endregion
+
+    #region [ On Painting Finished ]
+
+    public static Action<Product> OnPaintingFinished;
+
+    public static void Invoke_OnPaintingFinished(Product product)
+    {
+        OnPaintingFinished?.Invoke(product);
     }
 
     #endregion

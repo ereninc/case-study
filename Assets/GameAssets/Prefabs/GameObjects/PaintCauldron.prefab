@@ -53,8 +53,8 @@ MonoBehaviour:
   draggableSlot: {fileID: 5810211474483272617}
   productObject: {fileID: 5810211473589769273}
   visualModel: {fileID: 5810211473043333551}
-  colorDataSO: {fileID: 0}
-  colorType: 2
+  colorDataSO: {fileID: 11400000, guid: 7eec04585e8d6c443bd240c2ca3756e8, type: 2}
+  _colorType: 0
 --- !u!114 &5810211473043333551
 MonoBehaviour:
   m_ObjectHideFlags: 0

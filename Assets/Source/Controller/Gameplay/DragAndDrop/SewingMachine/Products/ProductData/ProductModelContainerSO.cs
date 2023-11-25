@@ -12,5 +12,5 @@ public class ProductModelContainerSO : ScriptableObject
 public class Products
 {
     public ProductTypes type;
-    public ProductVisualModel prefab;
+    public ProductModel prefab;
 }

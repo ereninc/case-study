@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SewingMachineVisual : ObjectModel
+public class SewingMachineModel : ObjectModel
 {
     [SerializeField] private MachineIconModel machineIconModel;
     

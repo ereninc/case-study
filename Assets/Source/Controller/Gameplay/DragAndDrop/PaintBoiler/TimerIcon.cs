@@ -14,8 +14,7 @@ public class TimerIcon : TransformObject
         UpdateMaterial(360);
     }
 
-    [Button]
-    public void ReloadSprite(float duration)
+    public void StartTimer(float duration)
     {
         var process = 360f;
         UpdateMaterial(process);

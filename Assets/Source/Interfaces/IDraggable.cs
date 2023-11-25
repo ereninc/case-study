@@ -6,6 +6,7 @@ public interface IDraggable
     void OnPointerDown();
     void OnPointerUpdate();
     void OnPointerUp(DraggableSlot slot, float duration);
+    void OnPlaced(DraggableSlot slot, float duration);
     
     //SELECTABLES
     void OnSelect();

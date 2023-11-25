@@ -1,45 +1,44 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Rope : TransformObject, IDraggable
+public class Rope : DraggableBaseModel
 {
     [SerializeField] private DraggableSettingsDataSO draggableSettingsData;
-    [SerializeField] private RopeVisualModel visualModel;
+    [SerializeField] private RopeModel ropeModel;
     [SerializeField] private Transform modelParent;
-    private bool _isDragging = false;
 
     #region [ IDraggable ]
 
-    public void OnPointerDown()
+    public override void OnPointerDown()
     {
-        _isDragging = true;
+        base.OnPointerDown();
         OnSelect();
     }
 
-    public void OnPointerUpdate()
+    public override void OnPointerUp(DraggableSlot slot, float duration)
     {
-        if (!_isDragging) return;
-        // Transform.position = Input.mousePosition;
-    }
-
-    public void OnPointerUp(DraggableSlot slot, float duration = 0f)
-    {
-        _isDragging = false;
+        base.OnPointerUp(slot, duration);
         OnPlaced(slot, duration);
     }
 
-    #endregion
-
-    public void OnInitialize()
+    public override void OnSelect()
     {
-        visualModel.OnInitialize();
-        SetVisual();
+        modelParent.TweenScale(draggableSettingsData.selectedScaleMultiplier,
+            draggableSettingsData.placeMovementDuration);
+        ropeModel.ToggleIndicatorColor(true);
+        base.OnSelect();
     }
 
-    private void OnPlaced(DraggableSlot targetSlot, float duration)
+    public override void OnDeselect()
     {
-        // Transform.SetParent(targetSlot.Transform);
-        visualModel.OnPlaced();
+        modelParent.TweenScale(2f);
+        ropeModel.ToggleIndicatorColor(false);
+        base.OnDeselect();
+    }
+
+    public override void OnPlaced(DraggableSlot targetSlot, float duration)
+    {
+        ropeModel.OnPlaced();
         var sequence = DOTween.Sequence();
         sequence.Append(Transform.DOJump(targetSlot.Transform.position, 0.75f, 1,
             draggableSettingsData.placeMovementDuration));
@@ -50,29 +49,24 @@ public class Rope : TransformObject, IDraggable
             targetSlot.OnItemPlaced?.Invoke();
             OnStartSewing(duration);
         });
+        base.OnPlaced(targetSlot, duration);
+    }
+    #endregion
+
+    public void OnInitialize()
+    {
+        ropeModel.OnInitialize();
+        SetVisual();
     }
 
     private void OnStartSewing(float duration)
     {
         //Return to pool OnComplete
-        visualModel.StartWorking(duration, SetDeactive);
+        ropeModel.StartWorking(duration, SetDeactive);
     }
 
     private void SetVisual()
     {
         modelParent.localScale = Vector3.one * draggableSettingsData.deselectedScale;
-    }
-    
-    public void OnSelect()
-    {
-        modelParent.TweenScale(draggableSettingsData.selectedScaleMultiplier,
-            draggableSettingsData.placeMovementDuration);
-        visualModel.ToggleIndicatorColor(true);
-    }
-
-    public void OnDeselect()
-    {
-        modelParent.TweenScale(2f);
-        visualModel.ToggleIndicatorColor(false);
     }
 }

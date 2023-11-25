@@ -13,16 +13,6 @@ public static class SewingActions
 
     #endregion
 
-    #region [ OnProduct Sewed ]
-
-    public static Action OnProductCreated;
-    public static void Invoke_OnProductCreated()
-    {
-        OnProductCreated?.Invoke();
-    }
-
-    #endregion
-
     #region [ OnProduct Moved To PaintArea ]
 
     public static Action<IDraggable> OnProductReached;
