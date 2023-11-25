@@ -13,13 +13,13 @@ public static class EventController
 
     #endregion
 
-    #region [ On Product Sell ]
+    #region [ On Product Sell / MoneyIncrease - UI Money Spawn ]
 
     public static Action<int, Vector3, int> OnProductSell;
-    public static void Invoke_OnProductSell(int productPrice, Vector3 position, int moneyAmount)
+    public static void Invoke_OnProductSell(int increaseAmount, Vector3 worldPosition, int moneyIconAmount)
     {
-        OnProductSell?.Invoke(productPrice, position, moneyAmount);
+        OnProductSell?.Invoke(increaseAmount, worldPosition, moneyIconAmount);
     }
-
+    
     #endregion
 }
