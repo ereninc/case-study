@@ -22,7 +22,7 @@ public static class TransformExtensions
         return seq;
     }
 
-    public static Sequence MoveToButton(this Transform target, Vector3 position, Action onComplete)
+    public static Sequence MoveToPosition(this Transform target, Vector3 position, Action onComplete)
     {
         var sequence = DOTween.Sequence();
         sequence.Append(target.DOLocalMove(new Vector3(0, -0.35f, -1), 0.15f));
@@ -33,6 +33,13 @@ public static class TransformExtensions
         {
             target.DOMove(position, 0.75f).OnComplete(()=>onComplete?.Invoke());
         });
+        return sequence;
+    }
+
+    public static Sequence MoveUp(this Transform target, float y, float duration)
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(target.DOLocalMoveY(target.position.y + y, duration));
         return sequence;
     }
 }

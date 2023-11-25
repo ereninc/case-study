@@ -57,12 +57,14 @@ public class AreaButtonController : Singleton<AreaButtonController>, IAreaStateO
     {
         AreaController.SetAreaState(AreaStates.Painting);
         sewingAreaButton.transform.PunchScale();
+        AudioController.PlaySound(AudioController.Sound.ButtonClick);
     }
 
     private void OnClickSewingButton()
     {
         AreaController.SetAreaState(AreaStates.Sewing);
         paintAreaButton.transform.PunchScale();
+        AudioController.PlaySound(AudioController.Sound.ButtonClick);
     }
 
     #region [ Subscriptions ]

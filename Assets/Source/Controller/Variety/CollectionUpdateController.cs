@@ -8,6 +8,7 @@ public class CollectionUpdateController : ControllerBaseModel
     {
         UserPrefs.IncreaseCoinAmount(increaseAmount);
         EventController.Invoke_OnCoinUpdated();
+        AudioController.PlaySound(AudioController.Sound.CollectionUpdate);
     }
 
     #region [ Subscriptions ]

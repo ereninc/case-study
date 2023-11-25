@@ -4385,7 +4385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 795931548}
-  HasSound: 0
+  HasSound: 1
 --- !u!82 &795931548
 AudioSource:
   m_ObjectHideFlags: 0

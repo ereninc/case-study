@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SlotSettings
   m_EditorClassIdentifier: 
   maxRopeSlotCount: 3
-  maxProductSlotCount: 6
-  respawnTime: {x: 4, y: 8}
+  maxProductSlotCount: 20
+  respawnTime: {x: 5, y: 10}

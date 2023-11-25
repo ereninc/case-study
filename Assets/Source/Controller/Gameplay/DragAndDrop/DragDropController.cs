@@ -77,11 +77,13 @@ public class DragDropController : Singleton<DragDropController>
     private void OnEnable()
     {
         ProductActions.OnSellProduct += OnReturnObjectToPool;
+        SewingActions.OnProductReached += OnReturnObjectToPool;
     }
 
     private void OnDisable()
     {
         ProductActions.OnSellProduct -= OnReturnObjectToPool;
+        SewingActions.OnProductReached -= OnReturnObjectToPool;
     }
 
     #endregion

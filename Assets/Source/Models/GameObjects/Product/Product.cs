@@ -44,9 +44,8 @@ public class Product : DraggableBaseModel
 
     private void OnMovePaintArea()
     {
-        Vector3 worldPosition = TransitionExtension.UIToWorldPosition(AreaButtonController.Instance.GetRect(),
-            CameraController.Instance.uiCamera, offset);
-        Transform.MoveToButton(worldPosition, () => SewingActions.Invoke_OnProductReached(this));
+        Vector3 worldPosition = TransitionExtension.UIToWorldPosition(AreaButtonController.Instance.GetRect(), CameraController.Instance.uiCamera, offset);
+        Transform.MoveToPosition(worldPosition, () => SewingActions.Invoke_OnProductReached(this));
     }
 
     private void OnReachedPaintButton(IDraggable product)
@@ -84,7 +83,7 @@ public class Product : DraggableBaseModel
     private void OnPaintingFinished()
     {
         PaintingActions.Invoke_OnPaintingFinished(this);
-        Transform.DOLocalMoveY(Transform.position.y + 0.1025f, 0.25f);
+        Transform.MoveUp(0.1025f, 0.25f);
         stateController.SetPainted();
         boxCollider.enabled = true;
         IsCompleted = true;
@@ -179,6 +178,7 @@ public class Product : DraggableBaseModel
                     targetSlot.OnItemPlaced?.Invoke();
                     _productModel.OnPlacedCauldron();
                     OnEnterCauldron();
+                    AudioController.Instance.PlaySound(AudioController.Sound.Painting);
                 });
         }
     }
