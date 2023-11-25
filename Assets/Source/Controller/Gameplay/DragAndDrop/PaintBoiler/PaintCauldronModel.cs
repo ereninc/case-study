@@ -1,5 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using MEC;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PaintCauldronModel : TransformObject
@@ -11,15 +15,22 @@ public class PaintCauldronModel : TransformObject
     public void OnInitialize(Color color)
     {
         liquidRenderer.materials[liquidMaterialIndex].color = color;
+        timer.Initialize();
     }
 
-    public void OnStartedPainting(float paintingDuration)
+    public void OnStartedPainting(float paintingDuration, Action onComplete)
     {
-        timer.SetActiveGameObject(true);
-        timer.StartTimer(paintingDuration);
+        timer.Transform.PunchScale();
+        var paintingProcess = timer.StartTimer(paintingDuration);
+        paintingProcess.OnComplete(() => onComplete?.Invoke());
     }
 
-    public void OnPaintingEnded()
+    public void OnFinishedPainting()
+    {
+        timer.Transform.PunchScale();
+    }
+
+    public void OnProductSold()
     {
         timer.SetActiveGameObject(false);
     }

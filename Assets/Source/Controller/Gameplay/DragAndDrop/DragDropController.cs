@@ -66,4 +66,23 @@ public class DragDropController : Singleton<DragDropController>
         selectableSlot.OnDrop(_draggableObject);
         _draggableObject = null;
     }
+
+    private void OnReturnObjectToPool(IDraggable draggable)
+    {
+        _draggableObject = null;
+    }
+
+    #region [ Subscriptions ]
+
+    private void OnEnable()
+    {
+        ProductActions.OnSellProduct += OnReturnObjectToPool;
+    }
+
+    private void OnDisable()
+    {
+        ProductActions.OnSellProduct -= OnReturnObjectToPool;
+    }
+
+    #endregion
 }

@@ -14,10 +14,10 @@ public static class PaintingActions
 
     #region [ On Product Enter Painting Cauldron ]
 
-    public static Action<Product> OnPaintingStarted;
-    public static void Invoke_OnPaintingStarted(Product product)
+    public static Action<Product, DraggableSlot> OnPaintingStarted;
+    public static void Invoke_OnPaintingStarted(Product product, DraggableSlot slot)
     {
-        OnPaintingStarted?.Invoke(product);
+        OnPaintingStarted?.Invoke(product, slot);
     }
 
     public static Action<ColorData> OnEnteredCauldron;
@@ -35,6 +35,16 @@ public static class PaintingActions
     public static void Invoke_OnPaintingFinished(Product product)
     {
         OnPaintingFinished?.Invoke(product);
+    }
+
+    #endregion
+
+    #region [ On Cauldron Slot Clicked ]
+
+    public static Action<IDroppable> OnCauldronClicked;
+    public static void Invoke_OnCauldronClicked(IDroppable droppable)
+    {
+        OnCauldronClicked?.Invoke(droppable);
     }
 
     #endregion

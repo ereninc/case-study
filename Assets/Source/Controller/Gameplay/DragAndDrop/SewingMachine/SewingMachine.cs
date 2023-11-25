@@ -37,7 +37,7 @@ public class SewingMachine : DroppableBaseModel
 
     private void OnCompleteSewing()
     {
-        draggableSlot.ToggleSlot();
+        draggableSlot.ToggleSlot(true);
         sewingMachineModel.ToggleIcon(true);
         _product.OnCompleted -= OnCompleteSewing;
     }

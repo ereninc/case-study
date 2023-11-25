@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class PaintCauldron : DroppableBaseModel
 {
-    [SerializeField] private PaintCauldronModel visualModel;
+    [SerializeField] private MachineStateController stateController;
+    [SerializeField] private PaintCauldronModel paintCauldronModel;
+    [SerializeField] private BoxCollider boxCollider;
+    
     [ShowInInspector] private ColorData _colorData;
-    private Product _product;
+    [ShowInInspector] private Product _product;
+    [ShowInInspector] private bool _isPainting = false;
 
 
     [Header("TEST DATA")] [SerializeField] private ColorDataSO colorDataSO; // GET THIS FROM SPAWNER
@@ -22,9 +26,11 @@ public class PaintCauldron : DroppableBaseModel
     public void Initialize(ColorType colorType)
     {
         _colorData = GetColorDataByType(colorType);
-        visualModel.OnInitialize(_colorData.color);
+        paintCauldronModel.OnInitialize(_colorData.color);
+        stateController.SetIdle();
     }
 
+    //MOVE TO CAULDRON SETTER
     private ColorData GetColorDataByType(ColorType type)
     {
         return colorDataSO.colors.FirstOrDefault(color => color.type == type);
@@ -32,18 +38,43 @@ public class PaintCauldron : DroppableBaseModel
 
     public override void OnDrop(IDraggable draggableObject)
     {
-        PaintingActions.Invoke_OnEnteredCauldron(_colorData);
         base.OnDrop(draggableObject);
         OnStartPainting();
+        PaintingActions.Invoke_OnEnteredCauldron(_colorData);
     }
+
+    #region [ On Process ]
 
     private void OnStartPainting()
     {
-        visualModel.OnStartedPainting(2);
+        stateController.SetInProduction();
+        if (_isPainting) return;
+        boxCollider.enabled = false;
+        paintCauldronModel.OnStartedPainting(2, OnFinishedPainting);
+        _isPainting = true;
     }
 
-    private void SetProduct(Product product)
+    private void OnFinishedPainting()
     {
+        paintCauldronModel.OnFinishedPainting();
+    }
+
+    private void OnAvailableAgain(Product product)
+    {
+        if (_product != product || _product == null) return;
+        _product = null;
+        paintCauldronModel.OnProductSold();
+        draggableSlot.ToggleSlot(true);
+        boxCollider.enabled = true;
+        _isPainting = false;
+        stateController.SetIdle();
+    }
+
+    #endregion
+    
+    private void SetProduct(Product product, DraggableSlot slot)
+    {
+        if (draggableSlot != slot) return;
         _product = product;
     }
 
@@ -52,11 +83,13 @@ public class PaintCauldron : DroppableBaseModel
     private void OnEnable()
     {
         PaintingActions.OnPaintingStarted += SetProduct;
+        ProductActions.OnSellProduct += OnAvailableAgain;
     }
 
     private void OnDisable()
     {
         PaintingActions.OnPaintingStarted -= SetProduct;
+        ProductActions.OnSellProduct -= OnAvailableAgain;
     }
 
     #endregion

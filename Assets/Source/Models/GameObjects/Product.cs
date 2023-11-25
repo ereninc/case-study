@@ -7,6 +7,8 @@ public class Product : DraggableBaseModel
     [SerializeField] private ProductStateController stateController;
     [SerializeField] private DraggableSettingsDataSO draggableSettingsData;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private BoxCollider boxCollider;
+    private DraggableSlot _currentSlot;
     private ProductModel _productModel;
     private ColorData _colorData;
 
@@ -54,7 +56,6 @@ public class Product : DraggableBaseModel
     private void OnReachedPaintButton(IDraggable product)
     {
         if ((Product)product != this) return;
-        // Transform.TweenScaleShrink(1.2f, 0f, 0.3f, OnPaintArea);
         OnPaintArea();
     }
 
@@ -66,12 +67,15 @@ public class Product : DraggableBaseModel
 
     private void OnEnterCauldron()
     {
-        PaintingActions.Invoke_OnPaintingStarted(this);
+        PaintingActions.Invoke_OnPaintingStarted(this, _currentSlot);
+        SlotActions.Invoke_OnDraggableUsed(this);
+        boxCollider.enabled = false;
     }
 
-    private void OnStartPainting(Product product)
+    private void OnStartPainting(Product product, DraggableSlot slot)
     {
         if (product != this) return;
+        stateController.SetProduction();
         _productModel.OnStartedPainting(_colorData.color).OnComplete(OnPaintingFinished);
     }
 
@@ -84,18 +88,36 @@ public class Product : DraggableBaseModel
     {
         PaintingActions.Invoke_OnPaintingFinished(this);
         stateController.SetPainted();
+        boxCollider.enabled = true;
         IsCompleted = true;
     }
 
     #endregion
 
-    //WHEN SELL IT AFTER PAINTING
+    #region [ Sell Functions ]
+    
+    private void OnSellPainted()
+    {
+        if (stateController.GetState() != ProductState.Painted) return;
+        stateController.SetSold();
+        ProductActions.Invoke_OnSellProduct(this);
+        SellAnimation();
+    }
+
+    private void SellAnimation()
+    {
+        Transform.SetParent(null);
+        Transform.DOMove(new Vector3(6, 0f, -0.5f), 1f).OnComplete(OnReturnPool);
+    }
+    
     private void OnReturnPool()
     {
         Destroy(_productModel.gameObject);
         Transform.ResetLocal();
         SetDeactive();
     }
+
+    #endregion
 
     #region [ IDraggable ]
 
@@ -122,23 +144,11 @@ public class Product : DraggableBaseModel
             }
             else if (stateController.GetState() == ProductState.Painted)
             {
-                Debug.Log("SOLD!!");
-                SetDeactive();
+                OnSellPainted();
             }
 
             IsCompleted = false;
         }
-
-        // switch (stateController.GetState())
-        // {
-        //     case ProductState.Sewed:
-        //         OnMovePaintArea();
-        //         break;
-        //     case ProductState.Painted:
-        //         Debug.Log("SOLD!!!!");
-        //         SetDeactive();
-        //         break;
-        // }
 
         Transform.TweenScale(draggableSettingsData.selectedScaleMultiplier,
             draggableSettingsData.placeMovementDuration);
@@ -152,17 +162,19 @@ public class Product : DraggableBaseModel
 
     public override void OnPlaced(DraggableSlot targetSlot, float duration)
     {
-        //SET TIMER AND PARTICLE - ANIMATION STUFF
         base.OnPlaced(targetSlot, duration);
-        Transform.DOJump(targetSlot.Transform.position, 0.75f, 1, draggableSettingsData.placeMovementDuration)
-            .OnComplete(() =>
-            {
-                if (IsCompleted) return;
-                targetSlot.OnItemPlaced?.Invoke();
-                // if (stateController.GetState() != ProductState.Sewed) return;
-                _productModel.OnPlacedCauldron();
-                OnEnterCauldron();
-            });
+        _currentSlot = targetSlot;
+        if (stateController.GetState() != ProductState.Painted)
+        {
+            Transform.DOJump(targetSlot.Transform.position, 0.75f, 1, draggableSettingsData.placeMovementDuration)
+                .OnComplete(() =>
+                {
+                    if (IsCompleted) return;
+                    targetSlot.OnItemPlaced?.Invoke();
+                    _productModel.OnPlacedCauldron();
+                    OnEnterCauldron();
+                });
+        }
     }
 
     #endregion

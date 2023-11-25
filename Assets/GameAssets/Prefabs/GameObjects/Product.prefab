@@ -51,6 +51,7 @@ MonoBehaviour:
   stateController: {fileID: 958529683538694922}
   draggableSettingsData: {fileID: 11400000, guid: cbdc380f789cd8042ae6aa7d5e93c1d4, type: 2}
   offset: {x: -1.35, y: 0.6, z: 2.5}
+  boxCollider: {fileID: 6960487195579634956}
 --- !u!114 &958529683538694922
 MonoBehaviour:
   m_ObjectHideFlags: 0
