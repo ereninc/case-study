@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 28328206}
   - component: {fileID: 28328205}
   - component: {fileID: 28328204}
+  - component: {fileID: 28328207}
   m_Layer: 5
   m_Name: Button_Sew
   m_TagString: Untagged
@@ -358,6 +359,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28328202}
   m_CullTransparentMesh: 1
+--- !u!114 &28328207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28328202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 0.331
+  m_Width: 0.176
+  m_Rotation: 137
+  m_Softness: 1
+  m_Brightness: 0.208
+  m_Gloss: 0.764
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 2
+    loop: 1
+    loopDelay: 0.1
+    updateMode: 0
 --- !u!1001 &46243155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5792,6 +5819,7 @@ GameObject:
   - component: {fileID: 1349418992}
   - component: {fileID: 1349418991}
   - component: {fileID: 1349418990}
+  - component: {fileID: 1349418993}
   m_Layer: 5
   m_Name: Button_Paint
   m_TagString: Untagged
@@ -5902,6 +5930,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349418988}
   m_CullTransparentMesh: 1
+--- !u!114 &1349418993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349418988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 0.331
+  m_Width: 0.176
+  m_Rotation: 137
+  m_Softness: 1
+  m_Brightness: 0.208
+  m_Gloss: 0.764
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 2
+    loop: 1
+    loopDelay: 0.1
+    updateMode: 0
 --- !u!1 &1351855856
 GameObject:
   m_ObjectHideFlags: 0
