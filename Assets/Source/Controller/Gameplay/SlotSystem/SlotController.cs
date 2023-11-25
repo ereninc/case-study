@@ -9,7 +9,6 @@ using UnityEngine;
 public class SlotController : ControllerBaseModel
 {
     [SerializeField] private SlotSettingsSO slotSettingData;
-    // [SerializeField] private int objectCount;
     [SerializeField] private float xOffset;
     [SerializeField] private Vector3 startPosition;
     [SerializeField] private Transform draggableParent;
@@ -19,7 +18,7 @@ public class SlotController : ControllerBaseModel
     [Button]
     public void SpawnRope()
     {
-        if (Draggables.Count >= slotSettingData.maxSlotCount) return;
+        if (Draggables.Count >= slotSettingData.maxRopeSlotCount) return;
         Rope rope = RopeFactory.Instance.SpawnObject<Rope>();
         IDraggable draggable = rope.GetComponent<IDraggable>();
         AddDraggable(draggable);
@@ -28,7 +27,7 @@ public class SlotController : ControllerBaseModel
     [Button]
     public void SpawnProduct(ProductTypes type)
     {
-        if (Draggables.Count >= slotSettingData.maxSlotCount) return;
+        if (Draggables.Count >= slotSettingData.maxProductSlotCount) return;
         Product product = ProductFactory.Instance.SpawnObject<Product>(type);
         IDraggable draggable = product.GetComponent<IDraggable>();
         AddDraggable(draggable);
@@ -67,7 +66,8 @@ public class SlotController : ControllerBaseModel
 
     private void AddDraggable(IDraggable newDraggable)
     {
-        if (Draggables.Count >= slotSettingData.maxSlotCount) return;
+        int count = slotType == SlotType.Rope ? slotSettingData.maxRopeSlotCount : slotSettingData.maxProductSlotCount;
+        if (Draggables.Count >= count) return;
         Draggables.Add(newDraggable);
         ArrangeDraggables(PositioningType.Instant);
     }

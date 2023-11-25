@@ -35,5 +35,6 @@ public class Pools
 public enum PoolEnum
 {
     Product,
-    Rope
+    Rope,
+    SmokeParticle
 }

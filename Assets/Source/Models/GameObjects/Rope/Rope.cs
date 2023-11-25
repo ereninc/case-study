@@ -25,6 +25,7 @@ public class Rope : DraggableBaseModel
     {
         modelParent.TweenScale(draggableSettingsData.selectedScaleMultiplier,
             draggableSettingsData.placeMovementDuration);
+        modelParent.DOPunchRotation(Vector3.one * 1.2f, 0.25f, 1, 0.25f);
         ropeModel.ToggleIndicatorColor(true);
         base.OnSelect();
     }
@@ -39,6 +40,7 @@ public class Rope : DraggableBaseModel
     public override void OnPlaced(DraggableSlot targetSlot, float duration)
     {
         ropeModel.OnPlaced();
+        modelParent.localRotation = Quaternion.identity;
         var sequence = DOTween.Sequence();
         sequence.Append(Transform.DOJump(targetSlot.Transform.position, 0.75f, 1,
             draggableSettingsData.placeMovementDuration));

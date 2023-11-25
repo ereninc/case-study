@@ -1,30 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using MEC;
 using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem))]
-public class ParticleBaseModel : ObjectModel
+public class ParticleModel : TransformObject
 {
     public ParticleSystem Particle;
-   
-    public void SetStartColor(Color color)
-    {
-        Particle.SetStartColor(color);
-    }
+    [SerializeField] private float deactivateTime;
 
-    public void OnParticleSystemStopped()
+    public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
     {
-        gameObject.SetActive(false);
-    }
-
-    public virtual void Play()
-    {
+        SetActive();
+        Transform.position = position;
+        Transform.rotation = rotation;
         Particle.Play();
+        Timing.CallDelayed(deactivateTime, OnDeactivate);
     }
 
-    public virtual void Stop()
+    private void OnDeactivate()
     {
         Particle.Stop();
+        gameObject.SetActive(false);
     }
 
     private void Reset()

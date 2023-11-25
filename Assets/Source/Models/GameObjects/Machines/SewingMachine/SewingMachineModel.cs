@@ -6,6 +6,8 @@ public class SewingMachineModel : ObjectModel
 {
     [SerializeField] private MachineIconModel machineIconModel;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform effectParent;
+    
 
 
     public void SetVisual(ProductDataSO productData)
@@ -16,6 +18,7 @@ public class SewingMachineModel : ObjectModel
     public void ToggleIcon(bool isCompleted)
     {
         machineIconModel.ToggleIconColor(isCompleted);
+        effectParent.SetActiveGameObject(isCompleted);
     }
 
     public void SetAnimation(bool isCompleted)

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 19848150}
   - component: {fileID: 19912100}
   m_Layer: 0
-  m_Name: PaintedSparkle
+  m_Name: CompletedSparkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

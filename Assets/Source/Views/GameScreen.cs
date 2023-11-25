@@ -28,7 +28,7 @@ public class GameScreen : ScreenElement
     private void UpdateLevelText()
     {
         levelText.transform.PunchScale();
-        levelText.text = "Level 1";
+        levelText.text = "Day " + (UserPrefs.GetCurrentLevel() + 1);
     }
 
     #region [ Subscriptions ]

@@ -1,34 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class ParticlePoolModel : PoolModel
 {
-    public void SetParticle(Vector3 pos, VibrationTypes type)
-    {
-        ParticleBaseModel particle = GetDeactiveItem<ParticleBaseModel>();
-        if(particle != null)
-        {
-            particle.transform.position = pos;
-            particle.SetActiveGameObject(true);
-            particle.Play();
-        }
-
-    }
-
-    public void SetParticle(Vector3 pos, Quaternion rotation, VibrationTypes type)
-    {
-        ParticleBaseModel particle = GetDeactiveItem<ParticleBaseModel>();
-        if (particle != null)
-        {
-            particle.transform.position = pos;
-            particle.transform.rotation = rotation;
-            particle.SetActiveGameObject(true);
-            particle.Play();
-        }
-    }
-
-    [EditorButton]
+    [Button]
     public void GetDeactiveItems()
     {
         InitializeOnEditor();

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66133db242f60d24eb58cef608f5d321, type: 3}
   m_Name: SlotSettings
   m_EditorClassIdentifier: 
-  maxSlotCount: 3
+  maxRopeSlotCount: 3
+  maxProductSlotCount: 6
   respawnTime: {x: 4, y: 8}

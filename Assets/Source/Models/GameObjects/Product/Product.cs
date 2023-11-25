@@ -34,6 +34,7 @@ public class Product : DraggableBaseModel
             OnCompleted?.Invoke();
             IsCompleted = true;
             stateController.SetSewed();
+            SewingActions.Invoke_OnProductCreated(this);
         });
     }
 
