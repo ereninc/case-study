@@ -17,4 +17,4 @@ MonoBehaviour:
   unlockLevel: 1
   sewingTime: 3
   paintingTime: 3
-  incomeAmount: 100
+  incomeAmount: 40

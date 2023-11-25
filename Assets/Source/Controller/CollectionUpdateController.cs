@@ -1,17 +1,26 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CollectionUpdateController : ControllerBaseModel
 {
-    [Button]
-    public void Increase(int amount, Vector3 position)
+    private void OnSellProduct(int increaseAmount, Vector3 productPosition, int moneyAmount = 1)
     {
-        UserPrefs.IncreaseCoinAmount(amount);
+        UserPrefs.IncreaseCoinAmount(increaseAmount);
+        EventController.Invoke_OnCoinUpdated();
     }
 
-    [Button]
-    public void Decrease(int amount, Vector3 position)
+    #region [ Subscriptions ]
+
+    private void OnEnable()
     {
-        UserPrefs.DecreaseCoinAmount(amount);
+        EventController.OnProductSell += OnSellProduct;
     }
+
+    private void OnDisable()
+    {
+        EventController.OnProductSell -= OnSellProduct;
+    }
+
+    #endregion
 }

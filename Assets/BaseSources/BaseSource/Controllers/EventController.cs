@@ -12,4 +12,14 @@ public static class EventController
     }
 
     #endregion
+
+    #region [ On Product Sell ]
+
+    public static Action<int, Vector3, int> OnProductSell;
+    public static void Invoke_OnProductSell(int productPrice, Vector3 position, int moneyAmount)
+    {
+        OnProductSell?.Invoke(productPrice, position, moneyAmount);
+    }
+
+    #endregion
 }

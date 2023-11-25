@@ -21,7 +21,7 @@ public class ProductModel : TransformObject
         SetRenderer(process);
 
         var sewingSequence = DOTween.Sequence();
-        sewingSequence.Append(DOTween.To(() => process, x => process = x, sewingData.endAmount, 
+        sewingSequence.Append(DOTween.To(() => process, x => process = x, sewingData.endAmount,
             productDataSO.sewingTime));
         sewingSequence.OnUpdate(() => SetRenderer(process));
         sewingSequence.OnComplete(() => onComplete?.Invoke());
@@ -49,6 +49,11 @@ public class ProductModel : TransformObject
     public Tweener OnStartedPainting(Color color)
     {
         return meshRenderer.material.DOColor(color, productDataSO.paintingTime);
+    }
+
+    public void OnSellPainted()
+    {
+        EventController.Invoke_OnProductSell(productDataSO.incomeAmount, Transform.position, 1);
     }
 
     #endregion

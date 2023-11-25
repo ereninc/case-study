@@ -4,6 +4,8 @@ using DG.Tweening;
 using Random = UnityEngine.Random;
 using Sequence = DG.Tweening.Sequence;
 using System;
+using Sirenix.OdinInspector;
+
 public class CurrencyTransitionScreen : ControllerBaseModel
 {
     [SerializeField] private PoolModel imagePool;
@@ -13,8 +15,7 @@ public class CurrencyTransitionScreen : ControllerBaseModel
     public Vector2 emissionDirection = new Vector2(0, 1f);
     public float emissionAngle = 360f; // Random Range where particles are emitted
 
-    [Header("Spawn and move variables")] 
-    public Transform targetTransform;
+    [Header("Spawn and move variables")] public Transform targetTransform;
     public float targetBumpAmount = .2f;
     public float endScale = .8f;
     public float maxScale = 1.6f;
@@ -30,12 +31,12 @@ public class CurrencyTransitionScreen : ControllerBaseModel
     public float scaleDownDelay = .4f;
     public float scaleDownTime = .6f;
 
-    private void Emit(Vector3 spawnPos)
+    private void Emit(Vector3 spawnPos, int increaseAmount)
     {
-        StartCoroutine(EmitRoutine(targetTransform, spawnPos));
+        StartCoroutine(EmitRoutine(targetTransform, spawnPos, increaseAmount));
     }
 
-    private IEnumerator EmitRoutine(Transform target, Vector3 spawnPos)
+    private IEnumerator EmitRoutine(Transform target, Vector3 spawnPos, int increaseAmount)
     {
         float playtime = 0f;
         float emissionPerSecond = _emissionsPerSecond;
@@ -52,7 +53,7 @@ public class CurrencyTransitionScreen : ControllerBaseModel
             {
                 particleTimer -= 1f / emissionPerSecond;
                 CurrencyEffectModel currency = imagePool.GetDeactiveItem<CurrencyEffectModel>();
-                SetParticleSequence(currency, target, spawnPos);
+                SetParticleSequence(currency, target, spawnPos, increaseAmount);
             }
 
             yield return new WaitForEndOfFrame();
@@ -61,7 +62,8 @@ public class CurrencyTransitionScreen : ControllerBaseModel
         DOVirtual.DelayedCall(spawnTime + waitTime + moveTime + .21f, () => targetTransform.DOScale(targetScale, .1f));
     }
 
-    private void SetParticleSequence(CurrencyEffectModel particle, Transform target, Vector3 spawnPos)
+    private void SetParticleSequence(CurrencyEffectModel particle, Transform target, Vector3 spawnPos,
+        int increaseAmount)
     {
         Vector3 randomDirection =
             Quaternion.AngleAxis(Random.Range(-emissionAngle / 2f, emissionAngle / 2f), Vector3.forward) *
@@ -83,31 +85,41 @@ public class CurrencyTransitionScreen : ControllerBaseModel
             () => targetTransform.DOPunchScale(
                 Vector3.one * Mathf.Clamp(targetBumpAmount, 0,
                     1 + targetBumpAmount + .1f - targetTransform.localScale.x), .2f, 1, 0));
-        DOVirtual.DelayedCall(particleSequence.Duration(), () => EventController.Invoke_OnCoinUpdated());
+        DOVirtual.DelayedCall(particleSequence.Duration(), () => OnComplete(increaseAmount));
     }
 
-    private void EmitParticlesInTimePosition(int count, float t, Vector3 spawnPos)
+    private void OnComplete(int increaseAmount)
+    {
+        UserPrefs.IncreaseCoinAmount(increaseAmount);
+        EventController.Invoke_OnCoinUpdated();
+    }
+
+    private void EmitParticlesInTimePosition(int count, float t, Vector3 spawnPos, int increaseAmount)
     {
         _emissionsPerSecond = count / t;
         _playDuration = t;
-        Emit(spawnPos);
+        Emit(spawnPos, increaseAmount);
     }
 
-    public void EmitParticlesInTimeTransform(int count, float t, Transform spawnTransform)
+    public void EmitParticlesInTimeTransform(int count, float t, Transform spawnTransform, int increaseAmount)
     {
-        EmitParticlesInTimePosition(count, t, spawnTransform.position);
+        EmitParticlesInTimePosition(count, t, spawnTransform.position, increaseAmount);
     }
 
-    private void EmitInPosition(int amount, Vector3? position)
+    [Button]
+    public void EmitInPosition(int increaseAmount, Vector3 position, int moneyAmount = 1)
     {
-        if (position != null) EmitParticlesInTimePosition(amount, 0.1f, position.Value);
+        Vector3 screenPos = CameraController.main.WorldToScreenPoint(position);
+        EmitParticlesInTimePosition(moneyAmount, 0.1f, screenPos, increaseAmount);
     }
 
     private void OnEnable()
     {
+        EventController.OnProductSell += EmitInPosition;
     }
 
     private void OnDisable()
     {
+        EventController.OnProductSell -= EmitInPosition;
     }
 }

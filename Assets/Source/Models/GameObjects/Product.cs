@@ -107,7 +107,11 @@ public class Product : DraggableBaseModel
     private void SellAnimation()
     {
         Transform.SetParent(null);
-        Transform.DOMove(new Vector3(6, 0f, -0.5f), 1f).OnComplete(OnReturnPool);
+        Transform.DOMove(new Vector3(6, 0f, -0.5f), 1f).OnComplete(()=>
+        {
+            _productModel.OnSellPainted();
+            OnReturnPool();
+        });
     }
     
     private void OnReturnPool()
