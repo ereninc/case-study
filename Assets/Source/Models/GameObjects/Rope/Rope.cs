@@ -69,6 +69,7 @@ public class Rope : DraggableBaseModel
 
     private void SetVisual()
     {
+        Transform.PunchScale();
         modelParent.localScale = Vector3.one * draggableSettingsData.deselectedScale;
     }
 }

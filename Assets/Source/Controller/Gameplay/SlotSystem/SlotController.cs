@@ -70,6 +70,7 @@ public class SlotController : ControllerBaseModel
         if (Draggables.Count >= count) return;
         Draggables.Add(newDraggable);
         ArrangeDraggables(PositioningType.Instant);
+        if (slotType == SlotType.Product) SlotActions.Invoke_OnDraggableCollected();
     }
 
     private void RemoveDraggable(IDraggable draggable)
@@ -78,10 +79,12 @@ public class SlotController : ControllerBaseModel
         {
             Draggables.Remove(draggable);
             ArrangeDraggables(PositioningType.Slide);
-            if (slotType == SlotType.Rope)
+            if (slotType == SlotType.Product)
             {
-                RespawnRope();
+                SlotActions.Invoke_OnDraggableSold();
+                return;
             }
+            RespawnRope();
         }
     }
 
