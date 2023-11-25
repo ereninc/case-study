@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using MEC;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -47,7 +48,11 @@ public class LevelController : Singleton<LevelController>
             level = loopLevelStartIndex;
             UserPrefs.SetLevel(level);
         }
-        Timing.CallDelayed(0.5f, () => SceneManager.LoadScene(0));
+        Timing.CallDelayed(0.5f, () =>
+        {
+            DOTween.KillAll();
+            SceneManager.LoadScene(0);
+        });
     }
 
     [Button]

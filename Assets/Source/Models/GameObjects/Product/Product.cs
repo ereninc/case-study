@@ -74,7 +74,7 @@ public class Product : DraggableBaseModel
         SlotActions.Invoke_OnDraggableUsed(this);
         boxCollider.enabled = false;
     }
-    
+
     private void SetColorData(ColorData data)
     {
         _colorData = data;
@@ -90,6 +90,7 @@ public class Product : DraggableBaseModel
     private void OnPaintingFinished()
     {
         PaintingActions.Invoke_OnPaintingFinished(this);
+        Transform.DOLocalMoveY(Transform.position.y + 0.1025f, 0.25f);
         stateController.SetPainted();
         boxCollider.enabled = true;
         IsCompleted = true;
@@ -98,7 +99,7 @@ public class Product : DraggableBaseModel
     #endregion
 
     #region [ Sell Functions ]
-    
+
     private void OnSellPainted()
     {
         if (stateController.GetState() != ProductState.Painted) return;
@@ -109,18 +110,21 @@ public class Product : DraggableBaseModel
 
     private void SellAnimation()
     {
-        Transform.DOMove(new Vector3(6, -0.15f, -1f), 1f).OnComplete(()=>
+        Transform.DOMove(new Vector3(6, -0.15f, -1f), 1f).OnComplete(() =>
         {
             _productModel.OnSellPainted();
             OnReturnPool();
         });
     }
-    
+
     private void OnReturnPool()
     {
-        Destroy(_productModel.gameObject);
-        Transform.ResetLocal();
-        SetDeactive();
+        Transform.PunchShrink().OnComplete(() =>
+        {
+            Destroy(_productModel.gameObject);
+            Transform.ResetLocal();
+            SetDeactive();
+        });
     }
 
     #endregion

@@ -10,11 +10,18 @@ public class PaintCauldronModel : TransformObject
 {
     [SerializeField] private TimerIcon timer;
     [SerializeField] private MeshRenderer liquidRenderer;
+    [SerializeField] private ParticleSystem liquidWaveParticle;
+    [SerializeField] private ParticleSystem bubbleSurfaceParticle;
+    
+    
     [SerializeField] private int liquidMaterialIndex;
+    private Color _color;
 
     public void OnInitialize(Color color)
     {
-        liquidRenderer.materials[liquidMaterialIndex].color = color;
+        _color = color;
+        liquidRenderer.materials[liquidMaterialIndex].color = _color;
+        SetParticleColor();
         timer.Initialize();
     }
 
@@ -23,15 +30,27 @@ public class PaintCauldronModel : TransformObject
         timer.Transform.PunchScale();
         var paintingProcess = timer.StartTimer(paintingDuration);
         paintingProcess.OnComplete(() => onComplete?.Invoke());
+        
+        liquidWaveParticle.Play();
     }
 
     public void OnFinishedPainting()
     {
         timer.Transform.PunchScale();
+        liquidWaveParticle.Stop();
     }
 
     public void OnProductSold()
     {
         timer.SetActiveGameObject(false);
+    }
+
+    private void SetParticleColor()
+    {
+        var liquidMainSettings = liquidWaveParticle.main;
+        liquidMainSettings.startColor = _color;
+        
+        var surfaceMainSettings = bubbleSurfaceParticle.main;
+        surfaceMainSettings.startColor = _color;
     }
 }
