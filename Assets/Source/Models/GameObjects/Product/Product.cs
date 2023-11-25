@@ -8,6 +8,7 @@ public class Product : DraggableBaseModel
     [SerializeField] private DraggableSettingsDataSO draggableSettingsData;
     [SerializeField] private Vector3 offset;
     [SerializeField] private BoxCollider boxCollider;
+    
     private DraggableSlot _currentSlot;
     private ProductModel _productModel;
     private ColorData _colorData;
@@ -160,6 +161,7 @@ public class Product : DraggableBaseModel
             IsCompleted = false;
         }
 
+        _productModel.ToggleSelectIndicator(true);
         Transform.TweenScale(draggableSettingsData.selectedScaleMultiplier,
             draggableSettingsData.placeMovementDuration);
     }
@@ -167,6 +169,7 @@ public class Product : DraggableBaseModel
     public override void OnDeselect()
     {
         base.OnDeselect();
+        _productModel.ToggleSelectIndicator(false);
         Transform.TweenScale();
     }
 

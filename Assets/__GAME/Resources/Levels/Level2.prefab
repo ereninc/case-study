@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotSettingData: {fileID: 11400000, guid: 79426fa99b9c30346bf7e296bfb3d32a, type: 2}
   xOffset: 0.35
-  startPosition: {x: -0.35, y: -1.25, z: -0.2}
+  startPosition: {x: -0.35, y: -1.25, z: -0.35}
   draggableParent: {fileID: 7250216860301433405}
   slotType: 1
 --- !u!1 &7250216860446923354
@@ -1175,7 +1175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4336493629153385653, guid: 83fd934eb26fff042913129ef7d1b011, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 4336493629153385653, guid: 83fd934eb26fff042913129ef7d1b011, type: 3}
       propertyPath: m_LocalPosition.z

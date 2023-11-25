@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class ProductModel : TransformObject
 {
+    [Header("Data")]
     [SerializeField] private SewingDataSO sewingData;
-    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private ProductDataSO productDataSO;
+    [Header("Visual")]
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private exOutline outline;
+    [Header("Indicator / Color")]
+    [SerializeField] private Color[] colors;
+    [SerializeField] private SpriteRenderer selectIndicator;
     
+    private bool _isSelected = false;
     public ProductTypes GetType => productDataSO.type;
 
     public void SetVisual(Transform product)
@@ -15,10 +22,14 @@ public class ProductModel : TransformObject
         Transform.SetParent(product);
         Transform.SetPositionAndRotation(Vector3.zero, product.transform.localRotation);
         SetRenderer(sewingData.startAmount);
+        
+        selectIndicator.SetActiveGameObject(false);
+        ToggleSelectIndicator(false);
     }
     
     public void OnStartSewing(Action onComplete)
     {
+        outline.OnSelected();
         float process = sewingData.startAmount;
         SetRenderer(process);
 
@@ -38,24 +49,34 @@ public class ProductModel : TransformObject
 
     public void OnPaintAreaSlots()
     {
-        Transform.localScale = Vector3.one * 1.5f;
-        Transform.localRotation = Quaternion.Euler(45, -15, 0);
+        outline.OnHide();
+        Transform.localScale = Vector3.one * 1.35f;
+        Transform.localRotation = Quaternion.Euler(0, -15, 0);
+        selectIndicator.SetActiveGameObject(true);
     }
 
     public void OnPlacedCauldron()
     {
         Transform.localScale = Vector3.one;
         Transform.localRotation = Quaternion.Euler(0, 0, 0);
+        selectIndicator.SetActiveGameObject(false);
     }
 
     public Tweener OnStartedPainting(Color color)
     {
-        return meshRenderer.material.DOColor(color, productDataSO.paintingTime);
+        return meshRenderer.material.DOColor(color, productDataSO.paintingTime).OnComplete(outline.OnSelected);
     }
 
     public void OnSellPainted()
     {
         EventController.Invoke_OnProductSell(productDataSO.incomeAmount, Transform.position, productDataSO.sellIconCount);
+    }
+
+    public void ToggleSelectIndicator(bool isSelected)
+    {
+        _isSelected = isSelected;
+        selectIndicator.color = _isSelected ? colors[0] : colors[1];
+        selectIndicator.transform.PunchScale();
     }
 
     #endregion

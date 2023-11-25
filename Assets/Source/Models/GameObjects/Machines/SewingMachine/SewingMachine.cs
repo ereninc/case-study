@@ -33,12 +33,14 @@ public class SewingMachine : DroppableBaseModel
         _product.Transform.SetLocalPositionAndRotation(productObject.position, productObject.localRotation);
         _product.OnStartSewing();
         _product.OnCompleted += OnCompleteSewing;
+        sewingMachineModel.SetAnimation(false);
     }
 
     private void OnCompleteSewing()
     {
         draggableSlot.ToggleSlot(true);
         sewingMachineModel.ToggleIcon(true);
+        sewingMachineModel.SetAnimation(true);
         _product.OnCompleted -= OnCompleteSewing;
     }
 
