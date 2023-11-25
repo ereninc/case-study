@@ -17,7 +17,8 @@ public class TargetProductController : ControllerBaseModel
 
     private void SetTargetSlots()
     {
-        for (int i = 0; i < slots.Count; i++)
+        var targetProductList = targetProductData.targetProducts;
+        for (int i = 0; i < targetProductList.Count; i++)
         {
             var currentData = targetProductData.targetProducts[i];
             slots[i].Initialize(targetProductData.GetSprite(productContainer, currentData.productType), targetProductData.GetColor(colorData, currentData.colorType));
