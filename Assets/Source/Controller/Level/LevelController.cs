@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -6,6 +7,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -16,24 +18,27 @@ public class LevelController : Singleton<LevelController>
     [ShowInInspector] private int _levelCount = 0;
 
     [SerializeField] private int loopLevelStartIndex;
-    [SerializeField] private List<LevelModel> levels;
+    [SerializeField] private MasterLevelDataSO masterLevelData;
+    [SerializeField] private LevelModel levelPrefab;
+    [ShowInInspector] private int _currentIndex = 0;
 
     [ShowInInspector] public LevelModel ActiveLevel { get; private set; }
 
     public override void Initialize()
     {
         base.Initialize();
+        LevelModel spawnedLevel = Instantiate(levelPrefab);
+        ActiveLevel = spawnedLevel;
+        ActiveLevel.SetActiveGameObject(true);
         LoadLevel();
     }
 
     private void LoadLevel()
     {
-        var index = UserPrefs.GetCurrentLevel();
-        LevelModel spawnedLevel = Instantiate(levels[index]);
-        ActiveLevel = spawnedLevel;
-        ActiveLevel.SetActiveGameObject(true);
-        ActiveLevel.Initialize();
-        // ActiveLevel = levels[PlayerDataModel.Data.LevelIndex];
+        _levelCount = masterLevelData.levelData.Count;
+        _currentIndex = UserPrefs.GetCurrentLevel();
+        ActiveLevel.Initialize(masterLevelData.levelData[_currentIndex]);
+        Debug.Log(_currentIndex);
     }
 
     public void NextLevel()
@@ -49,29 +54,10 @@ public class LevelController : Singleton<LevelController>
             level = loopLevelStartIndex;
             UserPrefs.SetLevel(level);
         }
-        Timing.CallDelayed(0.5f, () =>
-        {
-            DOTween.KillAll();
-            SceneManager.LoadScene(0);
-        });
-    }
 
-    [Button]
-    public void Editor_GetAllLevels()
-    {
-        levels.Clear();
-        Object[] levelPrefabs = Resources.LoadAll<GameObject>(_levelsFolder);
-        foreach (var obj in levelPrefabs)
-        {
-            GameObject levelPrefab = (GameObject)obj;
-            LevelModel levelModel = levelPrefab.GetComponent<LevelModel>();
-
-            if (levelModel != null)
-            {
-                levels.Add(levelModel);
-            }
-        }
-
-        _levelCount = levels.Count;
+        GameController.SetGameState(GameStates.Game);
+        LoadLevel();
+        EventController.Invoke_OnLevelCompleted();
+        // TargetProductController.Instance.SetTargetSlots();
     }
 }

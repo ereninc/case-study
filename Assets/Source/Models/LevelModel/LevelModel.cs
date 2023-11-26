@@ -8,12 +8,17 @@ public class LevelModel : ObjectModel
     [SerializeField] private SewingArea sewingArea;
     [SerializeField] private PaintingArea paintingArea;
 
-    public LevelDataSO levelData;
+    public LevelDataSO LevelData { get; set; }
 
-    public override void Initialize()
+    public void Initialize(LevelDataSO levelData)
     {
-        base.Initialize();
-        sewingArea.SetMachines(levelData.machineData);
-        paintingArea.SetPaintCauldrons(levelData.paintCauldronData);
+        LevelData = levelData;
+        SetAreaData();
+    }
+
+    private void SetAreaData()
+    {
+        sewingArea.SetMachines(LevelData.machineData);
+        paintingArea.SetPaintCauldrons(LevelData.paintCauldronData);
     }
 }

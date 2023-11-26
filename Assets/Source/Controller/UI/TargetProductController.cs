@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using MEC;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,12 +20,15 @@ public class TargetProductController : Singleton<TargetProductController>
     [Button]
     public void SetTargetSlots()
     {
-        var currentList = LevelController.ActiveLevel.levelData.targetProductData.targetProducts;
+        _successfulProductCount = 0;
+        var currentList = LevelController.ActiveLevel.LevelData.targetProductData.targetProducts;
         for (int i = 0; i < currentList.Count; i++)
         {
             var currentData = currentList[i];
-            slots[i].Initialize(LevelController.ActiveLevel.levelData.targetProductData.GetSprite(productContainer, currentData.productType),
-                LevelController.ActiveLevel.levelData.targetProductData.GetColor(colorData, currentData.colorType));
+            slots[i].Initialize(
+                LevelController.ActiveLevel.LevelData.targetProductData.GetSprite(productContainer,
+                    currentData.productType),
+                LevelController.ActiveLevel.LevelData.targetProductData.GetColor(colorData, currentData.colorType));
         }
     }
 
@@ -35,7 +40,7 @@ public class TargetProductController : Singleton<TargetProductController>
             productType = product.GetType
         };
 
-        var productList = LevelController.ActiveLevel.levelData.targetProductData.targetProducts;
+        var productList = LevelController.ActiveLevel.LevelData.targetProductData.targetProducts;
         for (int i = 0; i < productList.Count; i++)
         {
             if (data.colorType == productList[i].colorType &&
@@ -52,7 +57,7 @@ public class TargetProductController : Singleton<TargetProductController>
     private void CheckGameState()
     {
         _successfulProductCount++;
-        if (_successfulProductCount >= LevelController.ActiveLevel.levelData.targetProductData.targetProducts.Count)
+        if (_successfulProductCount >= LevelController.ActiveLevel.LevelData.targetProductData.targetProducts.Count)
         {
             GameController.SetGameState(GameStates.Win);
         }
@@ -63,11 +68,13 @@ public class TargetProductController : Singleton<TargetProductController>
     private void OnEnable()
     {
         ProductActions.OnSellProduct += CheckSoldProduct;
+        EventController.OnLevelCompleted += SetTargetSlots;
     }
 
     private void OnDisable()
     {
         ProductActions.OnSellProduct -= CheckSoldProduct;
+        EventController.OnLevelCompleted -= SetTargetSlots;
     }
 
     #endregion

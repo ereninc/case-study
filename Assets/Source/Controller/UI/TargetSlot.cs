@@ -13,7 +13,8 @@ public class TargetSlot : TransformObject
     public void Initialize(Sprite productSprite, Color productColor)
     {
         IsReached = false;
-        Transform.SetActiveGameObject(true);
+        SetActive();
+        Transform.localScale = Vector3.one;
         productImage.sprite = productSprite;
         productImage.color = productColor;
     }

@@ -36,11 +36,14 @@ public class GameScreen : ScreenElement
     private void OnEnable()
     {
         EventController.OnCoinUpdated += UpdateCoinText;
+        EventController.OnLevelCompleted += UpdateLevelText;
+        UpdateLevelText();
     }
 
     private void OnDisable()
     {
         EventController.OnCoinUpdated -= UpdateCoinText;
+        EventController.OnLevelCompleted -= UpdateLevelText;
     }
 
     #endregion
