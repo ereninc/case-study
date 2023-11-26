@@ -13,16 +13,17 @@ public class UnlockController : ControllerBaseModel
 
     private void SetUnlocks()
     {
+        var currentLevel = UserPrefs.GetCurrentLevel();
         var sewingMachines = LevelController.ActiveLevel.sewingArea.sewingMachines;
         for (int i = 0; i < sewingMachines.Count; i++)
         {
-            sewingMachines[i].CheckUnlockable(UserPrefs.GetCurrentLevel());
+            sewingMachines[i].CheckUnlockable(currentLevel);
         }
 
         var paintCauldrons = LevelController.ActiveLevel.paintingArea.paintCauldrons;
         for (int i = 0; i < paintCauldrons.Count; i++)
         {
-            paintCauldrons[i].CheckUnlockable(UserPrefs.GetCurrentLevel());
+            paintCauldrons[i].CheckUnlockable(currentLevel);
         }
     }
 

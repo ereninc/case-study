@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
+using DG.Tweening.Core;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -161,6 +162,26 @@ public static class Extensions
     {
         target.fillAmount = value / maxValue;
         return value / maxValue;
+    }
+
+    public static Sequence FloatTween(this float start, float end, float duration, Action onUpdate,
+        Action onComplete)
+    {
+        var process = start;
+        var sequence = DOTween.Sequence();
+        sequence.Append(DOTween.To(() => process, x => process = x, end,
+            duration));
+        sequence.OnUpdate(onUpdate.Invoke);
+        sequence.OnComplete(onComplete.Invoke);
+        return sequence;
+    }
+    
+    public static Sequence DOSequenceWithCallback(float start, float end, float duration, Action<float> onUpdate)
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(DOTween.To(() => start, x => start = x, end, duration));
+        sequence.OnUpdate(() => onUpdate?.Invoke(start));
+        return sequence;
     }
 
     public static float GetRandom(this Vector2 val)

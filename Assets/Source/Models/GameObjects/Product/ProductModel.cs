@@ -10,42 +10,43 @@ public class ProductModel : TransformObject
     [Header("Visual")] 
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private exOutline outline;
-
     [Header("Indicator / Color")] 
     [SerializeField] private Color[] colors;
     [SerializeField] private SpriteRenderer selectIndicator;
 
     private bool _isSelected = false;
     public ProductTypes Type => productDataSO.type;
-    public int Price => productDataSO.incomeAmount;
 
     public void SetVisual(Transform product)
     {
         Transform.SetParent(product);
         Transform.SetPositionAndRotation(Vector3.zero, product.transform.localRotation);
-        SetRenderer(sewingData.startAmount);
-
-        if (selectIndicator != null) selectIndicator.SetActiveGameObject(false);
-        ToggleSelectIndicator(false);
+        SetDissolveValue(sewingData.startAmount);
+        SetIndicator();
     }
 
     public void OnStartSewing(Action onComplete)
     {
         outline.OnSelected();
         float process = sewingData.startAmount;
-        SetRenderer(process);
+        SetDissolveValue(process);
 
-        var sewingSequence = DOTween.Sequence();
-        sewingSequence.Append(DOTween.To(() => process, x => process = x, sewingData.endAmount,
-            productDataSO.sewingTime));
-        sewingSequence.OnUpdate(() => SetRenderer(process));
-        sewingSequence.OnComplete(() => onComplete?.Invoke());
+        Sequence sewing = Extensions.DOSequenceWithCallback(process, sewingData.endAmount, productDataSO.sewingTime,
+            value => SetDissolveValue(value));
+        sewing.OnComplete(() => onComplete?.Invoke());
     }
 
-    private void SetRenderer(float process)
+    //Reverse Dissolve for Sewing Effect
+    private void SetDissolveValue(float process)
     {
         if (meshRenderer == null) return;
         meshRenderer.material.SetFloat("_CutoffHeight", process);
+    }
+
+    private void SetIndicator()
+    {
+        if (selectIndicator != null) selectIndicator.SetActiveGameObject(false);
+        ToggleSelectIndicator(false);
     }
 
     #region [ OnPaintArea Visual ]

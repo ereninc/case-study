@@ -1,5 +1,3 @@
-using System;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class SewingMachine : DroppableBaseModel, IUnlockable, IMachine

@@ -17,6 +17,14 @@ public class RopeModel : TransformObject
 
     private bool _isSelected = false;
 
+    public void OnInitialize()
+    {
+        SetPartScale();
+        ToggleIndicatorColor(false);
+        selectIndicator.SetActiveGameObject(true);
+        Transform.localScale = Vector3.one;
+    }
+
     public void StartWorking(float time, Action onComplete)
     {
         StartCoroutine(ClosePartsOverTime(time, onComplete));
@@ -30,16 +38,7 @@ public class RopeModel : TransformObject
             parts[i].DOScale(0f, timeToConsume);
             yield return new WaitForSeconds(timeToConsume);
         }
-
         onComplete?.Invoke();
-    }
-
-    public void OnInitialize()
-    {
-        SetPartScale();
-        ToggleIndicatorColor(false);
-        selectIndicator.SetActiveGameObject(true);
-        Transform.localScale = Vector3.one;
     }
 
     private void SetPartScale()

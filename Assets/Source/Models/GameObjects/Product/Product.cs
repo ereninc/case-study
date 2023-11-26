@@ -15,9 +15,9 @@ public class Product : DraggableBaseModel
     private ProductModel _productModel;
     private ColorData _colorData;
 
+    public Action OnCompleted;
     public ColorData Color => _colorData;
     public ProductTypes Type => _productModel.Type;
-    public Action OnCompleted;
 
     public void OnInitialize(ProductModel visualModel)
     {
@@ -40,10 +40,6 @@ public class Product : DraggableBaseModel
         });
     }
 
-    #endregion
-
-    #region [ Painting Area ]
-
     private void OnMovePaintArea()
     {
         Vector3 worldPosition = TransitionExtension.UIToWorldPosition(AreaButtonController.Instance.GetRect(), CameraController.Instance.uiCamera, offset);
@@ -55,6 +51,10 @@ public class Product : DraggableBaseModel
         if ((Product)product != this) return;
         OnPaintArea();
     }
+
+    #endregion
+
+    #region [ Painting Area ]
 
     private void OnPaintArea()
     {

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorType: 1
   unlockLevel: 4
-  unlockPrice: 50
+  unlockPrice: 500

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetProducts:
   - colorType: 2
-    productType: 0
+    productType: 3
   - colorType: 1
     productType: 1
   - colorType: 3
-    productType: 2
-  - colorType: 0
     productType: 3
   - colorType: 0
     productType: 3
+  - colorType: 0
+    productType: 1

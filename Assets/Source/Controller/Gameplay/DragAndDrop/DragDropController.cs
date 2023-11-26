@@ -55,6 +55,8 @@ public class DragDropController : Singleton<DragDropController>
         }
     }
 
+    #region [ Field Setter Functions ]
+
     private void OnObjectSelected()
     {
         _draggableObject.OnPointerDown();
@@ -75,6 +77,7 @@ public class DragDropController : Singleton<DragDropController>
         }
         _draggableObject = null;
     }
+    #endregion
 
     #region [ Subscriptions ]
 

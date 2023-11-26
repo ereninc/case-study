@@ -1372,7 +1372,7 @@ PrefabInstance:
     - target: {fileID: 8513674794300697720, guid: ab7650cfa05e40146b236ca71035472b, type: 3}
       propertyPath: ropeData
       value: 
-      objectReference: {fileID: 11400000, guid: 48388e0b020c10c46bee689a0f1c0650, type: 2}
+      objectReference: {fileID: 11400000, guid: 64630525bab6fd44a9d21af5865fb152, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab7650cfa05e40146b236ca71035472b, type: 3}
 --- !u!4 &3756415066903466031 stripped
