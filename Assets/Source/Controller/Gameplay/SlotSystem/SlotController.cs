@@ -96,16 +96,16 @@ public class SlotController : ControllerBaseModel
 
     private void OnEnable()
     {
-        SlotActions.OnDraggableSpawned += AddDraggable;
-        SlotActions.OnDraggableUsed += RemoveDraggable;
+        SlotActions.OnAddDraggable += AddDraggable;
+        SlotActions.OnRemoveDraggable += RemoveDraggable;
         if (slotType == SlotType.Product)
             SewingActions.OnProductReached += AddDraggable;
     }
 
     private void OnDisable()
     {
-        SlotActions.OnDraggableSpawned -= AddDraggable;
-        SlotActions.OnDraggableUsed -= RemoveDraggable;
+        SlotActions.OnAddDraggable -= AddDraggable;
+        SlotActions.OnRemoveDraggable -= RemoveDraggable;
         if (slotType == SlotType.Product)
             SewingActions.OnProductReached -= AddDraggable;
     }

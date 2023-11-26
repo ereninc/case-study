@@ -10,9 +10,11 @@ public class RopeModel : TransformObject
     [Header("Indicator / Color")] 
     [SerializeField] private SpriteRenderer selectIndicator;
     [SerializeField] private Color[] colors;
+
     [Header("Parts")] 
     [SerializeField] private Transform[] parts;
-    
+    [SerializeField] private RopeDataSO ropeData;
+
     private bool _isSelected = false;
 
     public void StartWorking(float time, Action onComplete)
@@ -28,23 +30,30 @@ public class RopeModel : TransformObject
             parts[i].DOScale(0f, timeToConsume);
             yield return new WaitForSeconds(timeToConsume);
         }
+
         onComplete?.Invoke();
     }
 
     public void OnInitialize()
     {
-        SetParts();
+        SetPartScale();
         ToggleIndicatorColor(false);
         selectIndicator.SetActiveGameObject(true);
         Transform.localScale = Vector3.one;
     }
 
-    private void SetParts()
+    private void SetPartScale()
     {
         for (int i = 0; i < parts.Length; i++)
         {
             parts[i].transform.localScale = Vector3.one;
         }
+    }
+
+    [Button]
+    public void SetColor()
+    {
+        //CHECK LATER
     }
 
     public void OnPlaced()

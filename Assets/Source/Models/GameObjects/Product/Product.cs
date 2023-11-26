@@ -16,7 +16,7 @@ public class Product : DraggableBaseModel
     private ColorData _colorData;
 
     public ColorData Color => _colorData;
-    public ProductTypes Type => _productModel.GetType;
+    public ProductTypes Type => _productModel.Type;
     public Action OnCompleted;
 
     public void OnInitialize(ProductModel visualModel)
@@ -67,7 +67,7 @@ public class Product : DraggableBaseModel
     {
         if (stateController.GetState() != ProductState.Sewed) return;
         PaintingActions.Invoke_OnPaintingStarted(this, _currentSlot);
-        SlotActions.Invoke_OnDraggableUsed(this);
+        SlotActions.Invoke_OnRemoveDraggable(this);
         boxCollider.enabled = false;
         animator.enabled = true;
     }

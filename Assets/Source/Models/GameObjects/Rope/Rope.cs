@@ -46,7 +46,7 @@ public class Rope : DraggableBaseModel
         sequence.Join(Transform.DOScale(Vector3.one * draggableSettingsData.placedScaleFactor, 0.35f));
         sequence.AppendCallback(() =>
         {
-            SlotActions.Invoke_OnDraggableUsed(this);
+            SlotActions.Invoke_OnRemoveDraggable(this);
             targetSlot.OnItemPlaced?.Invoke();
             OnStartSewing(duration);
         });

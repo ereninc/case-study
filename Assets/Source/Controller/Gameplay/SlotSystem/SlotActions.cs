@@ -3,23 +3,23 @@ using JetBrains.Annotations;
 
 public static class SlotActions
 {
-    #region [ With Type ]
+    #region [ Add / Remove ]
 
-    public static Action<IDraggable?> OnDraggableSpawned;
-    public static void Invoke_OnDraggableSpawned([CanBeNull] IDraggable draggable)
+    public static Action<IDraggable?> OnAddDraggable;
+    public static void Invoke_OnAddDraggable([CanBeNull] IDraggable draggable)
     {
-        OnDraggableSpawned?.Invoke(draggable);
+        OnAddDraggable?.Invoke(draggable);
     }
     
-    public static Action<IDraggable?> OnDraggableUsed;
-    public static void Invoke_OnDraggableUsed([CanBeNull] IDraggable draggable)
+    public static Action<IDraggable?> OnRemoveDraggable;
+    public static void Invoke_OnRemoveDraggable([CanBeNull] IDraggable draggable)
     {
-        OnDraggableUsed?.Invoke(draggable);
+        OnRemoveDraggable?.Invoke(draggable);
     }
 
     #endregion
     
-    #region [ Without Type ]
+    #region [ Collect / Sold ]
 
     public static Action OnDraggableCollected;
     public static void Invoke_OnDraggableCollected()

@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class ProductModel : TransformObject
 {
-    [Header("Data")] [SerializeField] private SewingDataSO sewingData;
+    [Header("Data")] 
+    [SerializeField] private SewingDataSO sewingData;
     [SerializeField] private ProductDataSO productDataSO;
-    [Header("Visual")] [SerializeField] private MeshRenderer meshRenderer;
+    [Header("Visual")] 
+    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private exOutline outline;
 
-    [Header("Indicator / Color")] [SerializeField]
-    private Color[] colors;
-
+    [Header("Indicator / Color")] 
+    [SerializeField] private Color[] colors;
     [SerializeField] private SpriteRenderer selectIndicator;
 
     private bool _isSelected = false;
-    public ProductTypes GetType => productDataSO.type;
+    public ProductTypes Type => productDataSO.type;
+    public int Price => productDataSO.incomeAmount;
 
     public void SetVisual(Transform product)
     {
