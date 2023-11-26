@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   icon: {fileID: 21300000, guid: 061414766444d4d078f6f4a17b0f255e, type: 3}
-  sewingTime: 5
-  paintingTime: 5
+  sewingTime: 7
+  paintingTime: 8
   incomeAmount: 100
   sellIconCount: 1
