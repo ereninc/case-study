@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class DroppableBaseModel : ObjectModel, IDroppable
+public class DroppableBaseModel : TransformObject, IDroppable
 {
     public DraggableSlot draggableSlot;
     public Transform productObject;

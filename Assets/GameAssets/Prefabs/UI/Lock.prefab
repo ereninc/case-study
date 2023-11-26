@@ -337,6 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   productParent: {fileID: 1357180153597184988}
   lockTitle: {fileID: 1357180153208124475}
+  boxCollider: {fileID: 1152422385}
 --- !u!65 &1152422385
 BoxCollider:
   m_ObjectHideFlags: 0

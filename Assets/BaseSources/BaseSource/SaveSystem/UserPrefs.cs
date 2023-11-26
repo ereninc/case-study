@@ -3,7 +3,6 @@ using UnityEngine;
 
 public static class UserPrefs
 {
-
     #region [ Collection Save ]
 
     public static int totalEarned = 0;
@@ -59,7 +58,6 @@ public static class UserPrefs
 
     #endregion
     
-
     public static void Save()
     {
         // LocalPrefs.Save(LocalPrefs.defaultFileName, true);

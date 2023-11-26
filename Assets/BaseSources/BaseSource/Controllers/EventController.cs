@@ -32,4 +32,14 @@ public static class EventController
     }
     
     #endregion
+
+    #region [ Unlocks ]
+
+    public static Action<IDraggable> OnUnlockMachine;
+    public static void Invoke_OnUnlockMachine(IDraggable draggable)
+    {
+        OnUnlockMachine?.Invoke(draggable);
+    }
+
+    #endregion
 }

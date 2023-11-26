@@ -66,14 +66,12 @@ public class UnlockModel : DraggableBaseModel
 
     private void OnClick()
     {
-        Debug.Log("Clicked");
         if (_unlockLevel - 1 <= UserPrefs.GetCurrentLevel())
         {
             var totalCollection = UserPrefs.GetTotalCollection();
             if (totalCollection < _unlockPrice)
             {
                 SetLocked();
-                Debug.Log("LOCKED!!");
             }
             else if (totalCollection >= _unlockPrice)
             {
@@ -81,13 +79,12 @@ public class UnlockModel : DraggableBaseModel
                 UserPrefs.DecreaseCoinAmount(_unlockPrice);
                 EventController.Invoke_OnCoinUpdated();
                 OnUnlocked?.Invoke();
-                Debug.Log("UNLOCKED!!");
             }
         }
         else
         {
             SetLocked();
-            Debug.Log("LOCKED ELSE!!");
         }
+        EventController.Invoke_OnUnlockMachine(this);
     }
 }

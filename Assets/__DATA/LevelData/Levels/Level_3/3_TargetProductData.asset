@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: 3_TargetProductData
   m_EditorClassIdentifier: 
   targetProducts:
-  - colorType: 1
+  - colorType: 2
     productType: 0
-  - colorType: 3
+  - colorType: 0
     productType: 0
   - colorType: 0
     productType: 1
   - colorType: 0
-    productType: 1
+    productType: 2

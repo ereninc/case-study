@@ -19,33 +19,6 @@ public class SewingMachine : DroppableBaseModel
         unlockModel.Initialize(_sewingMachineData.unlockLevel, _sewingMachineData.unlockPrice);
     }
 
-    public void CheckUnlockable(int currentLevel)
-    {
-        if (_sewingMachineData.unlockLevel <= 0)
-        {
-            unlockModel.SetUnlocked();
-            return;
-        }
-
-        if (currentLevel + 1 < _sewingMachineData.unlockLevel)
-        {
-            boxCollider.enabled = false;
-            unlockModel.SetLocked();
-        }
-        else if (currentLevel + 1 >= _sewingMachineData.unlockLevel)
-        {
-            boxCollider.enabled = false;
-            unlockModel.SetUnlockable();
-        }
-
-        unlockModel.SetTitle(_sewingMachineData.unlockLevel, _sewingMachineData.unlockPrice);
-    }
-
-    private void OnUnlocked()
-    {
-        boxCollider.enabled = true;
-    }
-
     private void OnStartSewing()
     {
         boxCollider.enabled = false;
@@ -71,6 +44,38 @@ public class SewingMachine : DroppableBaseModel
         boxCollider.enabled = true;
         sewingMachineModel.ToggleIcon(false);
     }
+    
+    #region [ Unlocks ]
+
+    public void CheckUnlockable(int currentLevel)
+    {
+        if (_sewingMachineData.unlockLevel <= 0)
+        {
+            unlockModel.SetUnlocked();
+            return;
+        }
+
+        if (currentLevel + 1 < _sewingMachineData.unlockLevel)
+        {
+            boxCollider.enabled = false;
+            unlockModel.SetLocked();
+        }
+        else if (currentLevel + 1 >= _sewingMachineData.unlockLevel)
+        {
+            boxCollider.enabled = false;
+            unlockModel.SetUnlockable();
+        }
+
+        unlockModel.SetTitle(_sewingMachineData.unlockLevel, _sewingMachineData.unlockPrice);
+    }
+
+    private void OnUnlocked()
+    {
+        boxCollider.enabled = true;
+        Transform.PunchScale();
+    }
+
+    #endregion
 
     #region [ Subscriptions ]
 

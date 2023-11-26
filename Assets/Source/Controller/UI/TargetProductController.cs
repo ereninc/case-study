@@ -36,8 +36,8 @@ public class TargetProductController : Singleton<TargetProductController>
     {
         var data = new TargetProductData
         {
-            colorType = product.GetColor.type,
-            productType = product.GetType
+            colorType = product.Color.type,
+            productType = product.Type
         };
 
         var productList = LevelController.ActiveLevel.LevelData.targetProductData.targetProducts;

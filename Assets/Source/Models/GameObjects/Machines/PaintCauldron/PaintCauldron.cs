@@ -48,14 +48,14 @@ public class PaintCauldron : DroppableBaseModel
     private void OnUnlocked()
     {
         boxCollider.enabled = true;
+        Transform.PunchScale();
     }
     
-
     public override void OnDrop(IDraggable draggableObject)
     {
         base.OnDrop(draggableObject);
         OnStartPainting();
-        PaintingActions.Invoke_OnEnteredCauldron(_colorData);
+        PaintingActions.Invoke_OnEnteredCauldron(_colorData, (Product)draggableObject);
     }
 
     #region [ On Process ]

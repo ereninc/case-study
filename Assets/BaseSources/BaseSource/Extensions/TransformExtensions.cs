@@ -40,6 +40,10 @@ public static class TransformExtensions
     {
         var sequence = DOTween.Sequence();
         sequence.Append(target.DOLocalMoveY(target.position.y + y, duration));
+        sequence.AppendCallback(()=>
+        {
+            DOTween.Kill(target);
+        });
         return sequence;
     }
 }

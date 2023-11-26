@@ -9,14 +9,16 @@ public class Product : DraggableBaseModel
     [SerializeField] private Vector3 offset;
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform modelParent;
+    
     
     
     private DraggableSlot _currentSlot;
     private ProductModel _productModel;
     private ColorData _colorData;
 
-    public ColorData GetColor => _colorData;
-    public ProductTypes GetType => _productModel.GetType;
+    public ColorData Color => _colorData;
+    public ProductTypes Type => _productModel.GetType;
     public Action OnCompleted;
 
     public void OnInitialize(ProductModel visualModel)
@@ -59,6 +61,7 @@ public class Product : DraggableBaseModel
     private void OnPaintArea()
     {
         PaintingActions.Invoke_OnEnterPaintingArea(this);
+        modelParent.ResetLocal();
         _productModel.OnPaintAreaSlots();
     }
 
@@ -71,8 +74,9 @@ public class Product : DraggableBaseModel
         animator.enabled = true;
     }
 
-    private void SetColorData(ColorData data)
+    private void SetColorData(ColorData data, Product product)
     {
+        if (product != this) return;
         _colorData = data;
     }
 
@@ -93,6 +97,7 @@ public class Product : DraggableBaseModel
         IsCompleted = true;
         animator.Play("OnIdle");
         animator.enabled = false;
+        modelParent.ResetLocal();
     }
 
     #endregion
@@ -121,6 +126,7 @@ public class Product : DraggableBaseModel
         Transform.PunchShrink().OnComplete(() =>
         {
             Destroy(_productModel.gameObject);
+            DOTween.Kill(Transform);
             Transform.ResetLocal();
             SetDeactive();
         });

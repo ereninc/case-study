@@ -15,5 +15,7 @@ MonoBehaviour:
   targetProducts:
   - colorType: 0
     productType: 0
-  - colorType: 1
-    productType: 0
+  - colorType: 0
+    productType: 1
+  - colorType: 2
+    productType: 1

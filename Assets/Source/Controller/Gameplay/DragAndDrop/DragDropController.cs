@@ -67,7 +67,7 @@ public class DragDropController : Singleton<DragDropController>
         _draggableObject = null;
     }
 
-    private void OnReturnObjectToPool(IDraggable draggable)
+    private void OnClickDeactiveItem(IDraggable draggable)
     {
         if (_draggableObject == null) return;
         _draggableObject.OnDeselect();
@@ -78,14 +78,16 @@ public class DragDropController : Singleton<DragDropController>
 
     private void OnEnable()
     {
-        ProductActions.OnSellProduct += OnReturnObjectToPool;
-        SewingActions.OnProductReached += OnReturnObjectToPool;
+        ProductActions.OnSellProduct += OnClickDeactiveItem;
+        SewingActions.OnProductReached += OnClickDeactiveItem;
+        EventController.OnUnlockMachine += OnClickDeactiveItem;
     }
 
     private void OnDisable()
     {
-        ProductActions.OnSellProduct -= OnReturnObjectToPool;
-        SewingActions.OnProductReached -= OnReturnObjectToPool;
+        ProductActions.OnSellProduct -= OnClickDeactiveItem;
+        SewingActions.OnProductReached -= OnClickDeactiveItem;
+        EventController.OnUnlockMachine -= OnClickDeactiveItem;
     }
 
     #endregion

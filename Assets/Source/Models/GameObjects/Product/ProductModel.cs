@@ -42,6 +42,7 @@ public class ProductModel : TransformObject
 
     private void SetRenderer(float process)
     {
+        if (meshRenderer == null) return;
         meshRenderer.material.SetFloat("_CutoffHeight", process);
     }
 

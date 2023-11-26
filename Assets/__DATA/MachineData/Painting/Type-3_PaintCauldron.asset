@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Type-3_PaintCauldron
   m_EditorClassIdentifier: 
   colorType: 1
-  unlockLevel: 2
+  unlockLevel: 4
   unlockPrice: 50

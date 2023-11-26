@@ -20,10 +20,10 @@ public static class PaintingActions
         OnPaintingStarted?.Invoke(product, slot);
     }
 
-    public static Action<ColorData> OnEnteredCauldron;
-    public static void Invoke_OnEnteredCauldron(ColorData data)
+    public static Action<ColorData, Product> OnEnteredCauldron;
+    public static void Invoke_OnEnteredCauldron(ColorData data, Product product)
     {
-        OnEnteredCauldron?.Invoke(data);
+        OnEnteredCauldron?.Invoke(data, product);
     }
 
     #endregion
