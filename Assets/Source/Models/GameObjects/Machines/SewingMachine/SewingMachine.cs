@@ -6,15 +6,44 @@ public class SewingMachine : DroppableBaseModel
 {
     [SerializeField] private SewingMachineModel sewingMachineModel;
     [SerializeField] private BoxCollider boxCollider;
-    
+    [SerializeField] private UnlockModel unlockModel;
+
     private ProductTypes _currentType;
     private SewingMachineData _sewingMachineData;
     private Product _product;
-    
+
     public void Initialize(SewingMachineData sewingMachineData)
     {
         _sewingMachineData = sewingMachineData;
         sewingMachineModel.SetVisual(_sewingMachineData);
+        unlockModel.Initialize(_sewingMachineData.unlockLevel, _sewingMachineData.unlockPrice);
+    }
+
+    public void CheckUnlockable(int currentLevel)
+    {
+        if (_sewingMachineData.unlockLevel <= 0)
+        {
+            unlockModel.SetUnlocked();
+            return;
+        }
+
+        if (currentLevel + 1 < _sewingMachineData.unlockLevel)
+        {
+            boxCollider.enabled = false;
+            unlockModel.SetLocked();
+        }
+        else if (currentLevel + 1 >= _sewingMachineData.unlockLevel)
+        {
+            boxCollider.enabled = false;
+            unlockModel.SetUnlockable();
+        }
+
+        unlockModel.SetTitle(_sewingMachineData.unlockLevel, _sewingMachineData.unlockPrice);
+    }
+
+    private void OnUnlocked()
+    {
+        boxCollider.enabled = true;
     }
 
     private void OnStartSewing()
@@ -49,12 +78,14 @@ public class SewingMachine : DroppableBaseModel
     {
         draggableSlot.OnItemPlaced += OnStartSewing;
         PaintingActions.OnEnterPaintingArea += OnAvailableAgain;
+        unlockModel.OnUnlocked += OnUnlocked;
     }
 
     private void OnDisable()
     {
         draggableSlot.OnItemPlaced -= OnStartSewing;
         PaintingActions.OnEnterPaintingArea -= OnAvailableAgain;
+        unlockModel.OnUnlocked -= OnUnlocked;
     }
 
     #endregion

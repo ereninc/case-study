@@ -38,7 +38,6 @@ public class LevelController : Singleton<LevelController>
         _levelCount = masterLevelData.levelData.Count;
         _currentIndex = UserPrefs.GetCurrentLevel();
         ActiveLevel.Initialize(masterLevelData.levelData[_currentIndex]);
-        Debug.Log(_currentIndex);
     }
 
     public void NextLevel()

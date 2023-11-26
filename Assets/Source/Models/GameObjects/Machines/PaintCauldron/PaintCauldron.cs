@@ -8,17 +8,48 @@ public class PaintCauldron : DroppableBaseModel
     [SerializeField] private MachineStateController stateController;
     [SerializeField] private PaintCauldronModel paintCauldronModel;
     [SerializeField] private BoxCollider boxCollider;
-    
+    [SerializeField] private UnlockModel unlockModel;
+
+    private PaintCauldronData _paintCauldronData;
     [ShowInInspector] private ColorData _colorData;
     [ShowInInspector] private Product _product;
     [ShowInInspector] private bool _isPainting = false;
     
-    public void Initialize(ColorData colorData)
+    public void Initialize(PaintCauldronData paintCauldronData, ColorData colorData)
     {
+        _paintCauldronData = paintCauldronData;
         _colorData = colorData;
         paintCauldronModel.OnInitialize(_colorData.color);
         stateController.SetIdle();
     }
+    
+    public void CheckUnlockable(int currentLevel)
+    {
+        if (_paintCauldronData.unlockLevel <= 0)
+        {
+            unlockModel.SetUnlocked();
+            return;
+        }
+
+        if (currentLevel + 1 < _paintCauldronData.unlockLevel)
+        {
+            boxCollider.enabled = false;
+            unlockModel.SetLocked();
+        }
+        else if (currentLevel + 1 >= _paintCauldronData.unlockLevel)
+        {
+            boxCollider.enabled = false;
+            unlockModel.SetUnlockable();
+        }
+
+        unlockModel.SetTitle(_paintCauldronData.unlockLevel, _paintCauldronData.unlockPrice);
+    }
+
+    private void OnUnlocked()
+    {
+        boxCollider.enabled = true;
+    }
+    
 
     public override void OnDrop(IDraggable draggableObject)
     {

@@ -3231,6 +3231,7 @@ MonoBehaviour:
   - {fileID: 1470201849}
   - {fileID: 1335275913}
   - {fileID: 795931547}
+  - {fileID: 1214308891}
   initializeOnAwake: 1
 --- !u!4 &566891031
 Transform:
@@ -6700,6 +6701,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e35d94c14d9764429e87d699a7a3cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1214308889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1214308890}
+  - component: {fileID: 1214308891}
+  m_Layer: 0
+  m_Name: UnlockController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1214308890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214308889}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1528080237}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1214308891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214308889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7523760b2845f3748bcf2c6960ba70a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1216405583
 GameObject:
   m_ObjectHideFlags: 0
@@ -8693,6 +8738,7 @@ Transform:
   - {fileID: 1258326555}
   - {fileID: 795931546}
   - {fileID: 1335275912}
+  - {fileID: 1214308890}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

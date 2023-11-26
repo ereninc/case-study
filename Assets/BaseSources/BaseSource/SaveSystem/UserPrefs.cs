@@ -62,6 +62,6 @@ public static class UserPrefs
 
     public static void Save()
     {
-        LocalPrefs.Save(LocalPrefs.defaultFileName, true);
+        // LocalPrefs.Save(LocalPrefs.defaultFileName, true);
     }
 }
