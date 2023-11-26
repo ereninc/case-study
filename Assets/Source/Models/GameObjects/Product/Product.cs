@@ -11,8 +11,6 @@ public class Product : DraggableBaseModel
     [SerializeField] private Animator animator;
     [SerializeField] private Transform modelParent;
     
-    
-    
     private DraggableSlot _currentSlot;
     private ProductModel _productModel;
     private ColorData _colorData;

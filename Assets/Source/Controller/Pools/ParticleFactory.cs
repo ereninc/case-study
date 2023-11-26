@@ -11,7 +11,7 @@ public class ParticleFactory : Singleton<ParticleFactory>
         SpawnObject<ParticleModel>(pool, pos, rot);
     }
 
-    public T SpawnObject<T>(PoolEnum poolEnum, Vector3 position, Quaternion rotation)
+    private T SpawnObject<T>(PoolEnum poolEnum, Vector3 position, Quaternion rotation)
     {
         ParticleModel particle = PoolFactory.Instance.GetDeactiveItem<ParticleModel>(poolEnum);
         particle.SetPositionAndRotation(position, rotation);
@@ -23,16 +23,23 @@ public class ParticleFactory : Singleton<ParticleFactory>
         SpawnParticle(PoolEnum.SmokeParticle, product.Transform.position + sewingOffset, Quaternion.identity);
     }
 
+    private void OnMachineUnlocked(IDraggable draggable)
+    {
+        SpawnParticle(PoolEnum.StarParticle, ((MonoBehaviour)draggable).transform.position + sewingOffset, Quaternion.identity);
+    }
+
     #region [ Subscriptions ]
 
     private void OnEnable()
     {
         SewingActions.OnProductCreated += OnProductCreated;
+        EventController.OnUnlockMachine += OnMachineUnlocked;
     }
 
     private void OnDisable()
     {
         SewingActions.OnProductCreated -= OnProductCreated;
+        EventController.OnUnlockMachine -= OnMachineUnlocked;
     }
 
     #endregion

@@ -2,7 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class SewingMachine : DroppableBaseModel
+public class SewingMachine : DroppableBaseModel, IUnlockable, IMachine
 {
     [SerializeField] private SewingMachineModel sewingMachineModel;
     [SerializeField] private BoxCollider boxCollider;
@@ -19,37 +19,41 @@ public class SewingMachine : DroppableBaseModel
         unlockModel.Initialize(_sewingMachineData.unlockLevel, _sewingMachineData.unlockPrice);
     }
 
-    private void OnStartSewing()
+    #region [ IMachine ]
+    
+    public void OnStartProcess()
     {
         boxCollider.enabled = false;
         _product = ProductFactory.Instance.SpawnObject<Product>(_sewingMachineData.type);
         _product.Transform.SetLocalPositionAndRotation(productObject.position, productObject.localRotation);
         _product.OnStartSewing();
-        _product.OnCompleted += OnCompleteSewing;
+        _product.OnCompleted += OnFinishProcess;
         sewingMachineModel.SetAnimation(false);
     }
 
-    private void OnCompleteSewing()
+    public void OnFinishProcess()
     {
         draggableSlot.ToggleSlot(true);
         sewingMachineModel.ToggleIcon(true);
         sewingMachineModel.SetAnimation(true);
-        _product.OnCompleted -= OnCompleteSewing;
+        _product.OnCompleted -= OnFinishProcess;
     }
 
-    private void OnAvailableAgain(Product product)
+    public void OnAvailableAgain(Product product)
     {
         if (_product != product) return;
         _product = null;
         boxCollider.enabled = true;
         sewingMachineModel.ToggleIcon(false);
     }
+
+    #endregion
     
-    #region [ Unlocks ]
+    #region [ IUnlockable ]
 
     public void CheckUnlockable(int currentLevel)
     {
-        if (_sewingMachineData.unlockLevel <= 0)
+        if (_sewingMachineData.unlockLevel <= 0 && unlockModel.CurrentState != LockState.Unlocked)
         {
             unlockModel.SetUnlocked();
             return;
@@ -57,19 +61,17 @@ public class SewingMachine : DroppableBaseModel
 
         if (currentLevel + 1 < _sewingMachineData.unlockLevel)
         {
-            boxCollider.enabled = false;
             unlockModel.SetLocked();
         }
         else if (currentLevel + 1 >= _sewingMachineData.unlockLevel)
         {
-            boxCollider.enabled = false;
             unlockModel.SetUnlockable();
         }
 
         unlockModel.SetTitle(_sewingMachineData.unlockLevel, _sewingMachineData.unlockPrice);
     }
 
-    private void OnUnlocked()
+    public void OnUnlocked()
     {
         boxCollider.enabled = true;
         Transform.PunchScale();
@@ -81,14 +83,14 @@ public class SewingMachine : DroppableBaseModel
 
     private void OnEnable()
     {
-        draggableSlot.OnItemPlaced += OnStartSewing;
+        draggableSlot.OnItemPlaced += OnStartProcess;
         PaintingActions.OnEnterPaintingArea += OnAvailableAgain;
         unlockModel.OnUnlocked += OnUnlocked;
     }
 
     private void OnDisable()
     {
-        draggableSlot.OnItemPlaced -= OnStartSewing;
+        draggableSlot.OnItemPlaced -= OnStartProcess;
         PaintingActions.OnEnterPaintingArea -= OnAvailableAgain;
         unlockModel.OnUnlocked -= OnUnlocked;
     }

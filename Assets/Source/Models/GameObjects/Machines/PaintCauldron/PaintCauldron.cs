@@ -3,7 +3,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PaintCauldron : DroppableBaseModel
+public class PaintCauldron : DroppableBaseModel, IUnlockable, IMachine
 {
     [SerializeField] private MachineStateController stateController;
     [SerializeField] private PaintCauldronModel paintCauldronModel;
@@ -11,9 +11,9 @@ public class PaintCauldron : DroppableBaseModel
     [SerializeField] private UnlockModel unlockModel;
 
     private PaintCauldronData _paintCauldronData;
-    [ShowInInspector] private ColorData _colorData;
-    [ShowInInspector] private Product _product;
-    [ShowInInspector] private bool _isPainting = false;
+    private ColorData _colorData;
+    private Product _product;
+    private bool _isPainting = false;
     
     public void Initialize(PaintCauldronData paintCauldronData, ColorData colorData)
     {
@@ -23,58 +23,36 @@ public class PaintCauldron : DroppableBaseModel
         stateController.SetIdle();
     }
     
-    public void CheckUnlockable(int currentLevel)
-    {
-        if (_paintCauldronData.unlockLevel <= 0)
-        {
-            unlockModel.SetUnlocked();
-            return;
-        }
-
-        if (currentLevel + 1 < _paintCauldronData.unlockLevel)
-        {
-            boxCollider.enabled = false;
-            unlockModel.SetLocked();
-        }
-        else if (currentLevel + 1 >= _paintCauldronData.unlockLevel)
-        {
-            boxCollider.enabled = false;
-            unlockModel.SetUnlockable();
-        }
-
-        unlockModel.SetTitle(_paintCauldronData.unlockLevel, _paintCauldronData.unlockPrice);
-    }
-
-    private void OnUnlocked()
-    {
-        boxCollider.enabled = true;
-        Transform.PunchScale();
-    }
-    
     public override void OnDrop(IDraggable draggableObject)
     {
         base.OnDrop(draggableObject);
-        OnStartPainting();
+        OnStartProcess();
         PaintingActions.Invoke_OnEnteredCauldron(_colorData, (Product)draggableObject);
     }
+    
+    private void SetProduct(Product product, DraggableSlot slot)
+    {
+        if (draggableSlot != slot) return;
+        _product = product;
+    }
 
-    #region [ On Process ]
+    #region [ IMachine ]
 
-    private void OnStartPainting()
+    public void OnStartProcess()
     {
         stateController.SetInProduction();
         if (_isPainting) return;
         boxCollider.enabled = false;
-        paintCauldronModel.OnStartedPainting(2, OnFinishedPainting);
+        paintCauldronModel.OnStartedPainting(2, OnFinishProcess);
         _isPainting = true;
     }
 
-    private void OnFinishedPainting()
+    public void OnFinishProcess()
     {
         paintCauldronModel.OnFinishedPainting();
     }
 
-    private void OnAvailableAgain(Product product)
+    public void OnAvailableAgain(Product product)
     {
         if (_product != product || _product == null) return;
         _product = null;
@@ -87,11 +65,34 @@ public class PaintCauldron : DroppableBaseModel
 
     #endregion
     
-    private void SetProduct(Product product, DraggableSlot slot)
+    #region [ IUnlockable ]
+    
+    public void CheckUnlockable(int currentLevel)
     {
-        if (draggableSlot != slot) return;
-        _product = product;
+        if (_paintCauldronData.unlockLevel <= 0 && unlockModel.CurrentState != LockState.Unlocked)
+        {
+            unlockModel.SetUnlocked();
+            return;
+        }
+        if (currentLevel + 1 < _paintCauldronData.unlockLevel)
+        {
+            unlockModel.SetLocked();
+        }
+        else if (currentLevel + 1 >= _paintCauldronData.unlockLevel)
+        {
+            unlockModel.SetUnlockable();
+        }
+
+        unlockModel.SetTitle(_paintCauldronData.unlockLevel, _paintCauldronData.unlockPrice);
     }
+
+    public void OnUnlocked()
+    {
+        boxCollider.enabled = true;
+        Transform.PunchScale();
+    }
+
+    #endregion
 
     #region [ Subscriptions ]
 

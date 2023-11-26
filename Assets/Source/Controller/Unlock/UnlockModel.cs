@@ -12,6 +12,7 @@ public class UnlockModel : DraggableBaseModel
     private int _unlockPrice;
 
     public Action OnUnlocked;
+    public LockState CurrentState => _lockState;
 
     public void Initialize(int unlockLevel, int unlockPrice)
     {
@@ -26,12 +27,14 @@ public class UnlockModel : DraggableBaseModel
 
     public void SetLocked()
     {
+        if (_lockState == LockState.Unlocked) return;
         ChangeState(LockState.Locked);
         Transform.PunchScale();
     }
 
     public void SetUnlockable()
     {
+        if (_lockState == LockState.Unlocked) return;
         ChangeState(LockState.Unlockable);
     }
 
@@ -41,8 +44,11 @@ public class UnlockModel : DraggableBaseModel
         Transform.PunchShrink();
         boxCollider.enabled = false;
         Transform.SetActiveGameObject(false);
+        AudioController.Instance.PlaySound(AudioController.Sound.ButtonClick);
+        EventController.Invoke_OnUnlockMachine(this);
+        OnUnlocked?.Invoke();
     }
-
+    
     public void SetTitle(int unlockLevel, int unlockPrice)
     {
         switch (_lockState)
@@ -85,6 +91,5 @@ public class UnlockModel : DraggableBaseModel
         {
             SetLocked();
         }
-        EventController.Invoke_OnUnlockMachine(this);
     }
 }

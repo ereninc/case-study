@@ -69,8 +69,10 @@ public class DragDropController : Singleton<DragDropController>
 
     private void OnClickDeactiveItem(IDraggable draggable)
     {
-        if (_draggableObject == null) return;
-        _draggableObject.OnDeselect();
+        if (_draggableObject != null)
+        {
+            _draggableObject.OnDeselect();
+        }
         _draggableObject = null;
     }
 

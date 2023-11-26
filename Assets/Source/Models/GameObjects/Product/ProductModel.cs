@@ -23,7 +23,7 @@ public class ProductModel : TransformObject
         Transform.SetPositionAndRotation(Vector3.zero, product.transform.localRotation);
         SetRenderer(sewingData.startAmount);
 
-        selectIndicator.SetActiveGameObject(false);
+        if (selectIndicator != null) selectIndicator.SetActiveGameObject(false);
         ToggleSelectIndicator(false);
     }
 

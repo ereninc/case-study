@@ -14,6 +14,7 @@ public class PaintCauldronModel : TransformObject
     [SerializeField] private ParticleSystem bubbleSurfaceParticle;
     
     
+    
     [SerializeField] private int liquidMaterialIndex;
     private Color _color;
 

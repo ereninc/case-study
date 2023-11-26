@@ -13,6 +13,7 @@ public class DroppableBaseModel : TransformObject, IDroppable
         draggableObject.OnPointerUp(draggableSlot, 2f);
         draggableSlot.ToggleSlot(false);
         OnTriggerAction();
+        Transform.PunchScale();
     }
 
     private void OnTriggerAction()

@@ -36,5 +36,6 @@ public enum PoolEnum
 {
     Product,
     Rope,
-    SmokeParticle
+    SmokeParticle,
+    StarParticle
 }
