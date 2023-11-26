@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/LevelSewingMachineData")]
 public class LevelSewingMachineData : ScriptableObject
 {
-    public List<ProductDataSO> sewingMachineData;
+    public List<SewingMachineData> sewingMachineData;
 }

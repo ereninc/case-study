@@ -12,7 +12,7 @@ public class PaintingArea : ObjectModel
     {
         for (int i = 0; i < paintCauldrons.Count; i++)
         {
-            paintCauldrons[i].Initialize(GetColorDataByType(data.colorType[i]));
+            paintCauldrons[i].Initialize(GetColorDataByType(data.paintCauldronData[i].colorType));
         }
     }
     

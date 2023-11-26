@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0427f55ea9004418bae638e7810eff, type: 3}
+  m_Name: 1_LevelData
+  m_EditorClassIdentifier: 
+  machineData: {fileID: 11400000, guid: 053e97b30a9c0ed459513b001d8527a1, type: 2}
+  paintCauldronData: {fileID: 11400000, guid: 9ec98a859f402f64bb1e02beeaae16ea, type: 2}
+  targetProductData: {fileID: 11400000, guid: 2d94068df40458149bce2313cdc84225, type: 2}

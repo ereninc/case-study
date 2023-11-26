@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0427f55ea9004418bae638e7810eff, type: 3}
-  m_Name: 1_LevelData
+  m_Script: {fileID: 11500000, guid: 0605985e5fda413e990fefa5a09ed9c1, type: 3}
+  m_Name: Type-3_PaintCauldron
   m_EditorClassIdentifier: 
-  machineData: {fileID: 11400000, guid: 053e97b30a9c0ed459513b001d8527a1, type: 2}
-  paintCauldronData: {fileID: 11400000, guid: 9ec98a859f402f64bb1e02beeaae16ea, type: 2}
+  colorType: 1
+  unlockLevel: 2
+  unlockPrice: 50

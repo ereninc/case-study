@@ -8,19 +8,19 @@ public class SewingMachine : DroppableBaseModel
     [SerializeField] private BoxCollider boxCollider;
     
     private ProductTypes _currentType;
-    private ProductDataSO _productData;
+    private SewingMachineData _sewingMachineData;
     private Product _product;
     
-    public void Initialize(ProductDataSO productData)
+    public void Initialize(SewingMachineData sewingMachineData)
     {
-        _productData = productData;
-        sewingMachineModel.SetVisual(_productData);
+        _sewingMachineData = sewingMachineData;
+        sewingMachineModel.SetVisual(_sewingMachineData);
     }
 
     private void OnStartSewing()
     {
         boxCollider.enabled = false;
-        _product = ProductFactory.Instance.SpawnObject<Product>(_productData.type);
+        _product = ProductFactory.Instance.SpawnObject<Product>(_sewingMachineData.type);
         _product.Transform.SetLocalPositionAndRotation(productObject.position, productObject.localRotation);
         _product.OnStartSewing();
         _product.OnCompleted += OnCompleteSewing;

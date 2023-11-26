@@ -8,11 +8,9 @@ public class SewingMachineModel : ObjectModel
     [SerializeField] private Animator animator;
     [SerializeField] private Transform effectParent;
     
-
-
-    public void SetVisual(ProductDataSO productData)
+    public void SetVisual(SewingMachineData sewingMachineData)
     {
-        machineIconModel.SetIcon(productData);
+        machineIconModel.SetIcon(sewingMachineData);
     }
 
     public void ToggleIcon(bool isCompleted)

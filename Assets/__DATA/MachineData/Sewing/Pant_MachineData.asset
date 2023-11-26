@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e558af65051fdd49b65a6b3ebcbf931, type: 3}
-  m_Name: 1_TargetProductData
+  m_Script: {fileID: 11500000, guid: 991c23cf27fa4942bbc2066ba9c613c1, type: 3}
+  m_Name: Pant_MachineData
   m_EditorClassIdentifier: 
-  targetProducts:
-  - colorType: 2
-    productType: 0
+  type: 3
+  icon: {fileID: 21300000, guid: 061414766444d4d078f6f4a17b0f255e, type: 3}
+  unlockLevel: 5
+  unlockPrice: 200

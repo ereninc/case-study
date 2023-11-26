@@ -11,9 +11,9 @@ public class MachineIconModel : TransformObject
     private Tweener _animation;
     private bool _isCompleted = false;
 
-    public void SetIcon(ProductDataSO productData)
+    public void SetIcon(SewingMachineData sewingMachineData)
     {
-        iconSprite.sprite = productData.icon;
+        iconSprite.sprite = sewingMachineData.icon;
     }
 
     public void ToggleIconColor(bool isCompleted)

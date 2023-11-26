@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelSewingMachineData
   m_EditorClassIdentifier: 
   sewingMachineData:
-  - {fileID: 11400000, guid: 0bc984f1b6d94c2429a9a12b8c093c59, type: 2}
-  - {fileID: 11400000, guid: 182bb0c7a1ec98d48a3e184d32cfea46, type: 2}
-  - {fileID: 11400000, guid: 755e3694c6fe0d24486648a84faa0c30, type: 2}
-  - {fileID: 11400000, guid: 505e7d671b4094844b2ca820e8d21f37, type: 2}
+  - {fileID: 11400000, guid: 7cc2993594f506b46bc0d0bc78509d20, type: 2}
+  - {fileID: 11400000, guid: 94eb1edf0145d12408b71c1f24f851e7, type: 2}
+  - {fileID: 11400000, guid: c13afc14137ea8c4abcfad6631e63cbf, type: 2}
+  - {fileID: 11400000, guid: 22d016caf23270049b119dc00281bf41, type: 2}

@@ -18,12 +18,12 @@ public class TargetProductController : Singleton<TargetProductController>
     [Button]
     public void SetTargetSlots()
     {
-        var currentList = LevelController.ActiveLevel.targetProductData.targetProducts;
+        var currentList = LevelController.ActiveLevel.levelData.targetProductData.targetProducts;
         for (int i = 0; i < currentList.Count; i++)
         {
             var currentData = currentList[i];
-            slots[i].Initialize(LevelController.ActiveLevel.targetProductData.GetSprite(productContainer, currentData.productType),
-                LevelController.ActiveLevel.targetProductData.GetColor(colorData, currentData.colorType));
+            slots[i].Initialize(LevelController.ActiveLevel.levelData.targetProductData.GetSprite(productContainer, currentData.productType),
+                LevelController.ActiveLevel.levelData.targetProductData.GetColor(colorData, currentData.colorType));
         }
     }
 
@@ -35,7 +35,7 @@ public class TargetProductController : Singleton<TargetProductController>
             productType = product.GetType
         };
 
-        var productList = LevelController.ActiveLevel.targetProductData.targetProducts;
+        var productList = LevelController.ActiveLevel.levelData.targetProductData.targetProducts;
         for (int i = 0; i < productList.Count; i++)
         {
             if (data.colorType == productList[i].colorType &&
@@ -52,7 +52,7 @@ public class TargetProductController : Singleton<TargetProductController>
     private void CheckGameState()
     {
         _successfulProductCount++;
-        if (_successfulProductCount >= LevelController.ActiveLevel.targetProductData.targetProducts.Count)
+        if (_successfulProductCount >= LevelController.ActiveLevel.levelData.targetProductData.targetProducts.Count)
         {
             GameController.SetGameState(GameStates.Win);
         }

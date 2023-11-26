@@ -9,7 +9,6 @@ public class LevelModel : ObjectModel
     [SerializeField] private PaintingArea paintingArea;
 
     public LevelDataSO levelData;
-    public TargetProductDataSO targetProductData;
 
     public override void Initialize()
     {
