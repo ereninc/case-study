@@ -8,6 +8,8 @@ public class Product : DraggableBaseModel
     [SerializeField] private DraggableSettingsDataSO draggableSettingsData;
     [SerializeField] private Vector3 offset;
     [SerializeField] private BoxCollider boxCollider;
+    [SerializeField] private Animator animator;
+    
     
     private DraggableSlot _currentSlot;
     private ProductModel _productModel;
@@ -66,6 +68,7 @@ public class Product : DraggableBaseModel
         PaintingActions.Invoke_OnPaintingStarted(this, _currentSlot);
         SlotActions.Invoke_OnDraggableUsed(this);
         boxCollider.enabled = false;
+        animator.enabled = true;
     }
 
     private void SetColorData(ColorData data)
@@ -77,6 +80,7 @@ public class Product : DraggableBaseModel
     {
         if (product != this) return;
         stateController.SetProduction();
+        animator.Play("OnPainting");
         _productModel.OnStartedPainting(_colorData.color).OnComplete(OnPaintingFinished);
     }
 
@@ -87,6 +91,8 @@ public class Product : DraggableBaseModel
         stateController.SetPainted();
         boxCollider.enabled = true;
         IsCompleted = true;
+        animator.Play("OnIdle");
+        animator.enabled = false;
     }
 
     #endregion

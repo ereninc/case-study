@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotSettingData: {fileID: 11400000, guid: 79426fa99b9c30346bf7e296bfb3d32a, type: 2}
-  xOffset: 0.35
+  xOffset: 0.4
   startPosition: {x: -0.35, y: -1.25, z: -0.35}
   draggableParent: {fileID: 7250216860301433405}
   slotType: 1
@@ -584,8 +584,6 @@ MonoBehaviour:
   productSlotController: {fileID: 7250216860433034125}
   sewingArea: {fileID: 6648707751893097228}
   paintingArea: {fileID: 4356909186327110058}
-  levelData: {fileID: 11400000, guid: 887412cff2e063542bba7e8000b3c0fd, type: 2}
-  targetProductData: {fileID: 11400000, guid: 2d94068df40458149bce2313cdc84225, type: 2}
 --- !u!1 &7250216861203481631
 GameObject:
   m_ObjectHideFlags: 0

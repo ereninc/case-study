@@ -52,6 +52,7 @@ MonoBehaviour:
   draggableSettingsData: {fileID: 11400000, guid: cbdc380f789cd8042ae6aa7d5e93c1d4, type: 2}
   offset: {x: -1.35, y: 0.6, z: 2.5}
   boxCollider: {fileID: 6960487195579634956}
+  animator: {fileID: 24667977469491042}
 --- !u!114 &958529683538694922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8144190239308653791}
+  - component: {fileID: 24667977469491042}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -108,3 +110,23 @@ Transform:
   m_Father: {fileID: 8144190238232857498}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &24667977469491042
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144190239308653790}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9053b5757dc61d4097a50feca2ad6da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

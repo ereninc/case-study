@@ -99,12 +99,14 @@ public class PaintCauldron : DroppableBaseModel
     {
         PaintingActions.OnPaintingStarted += SetProduct;
         ProductActions.OnSellProduct += OnAvailableAgain;
+        unlockModel.OnUnlocked += OnUnlocked;
     }
 
     private void OnDisable()
     {
         PaintingActions.OnPaintingStarted -= SetProduct;
         ProductActions.OnSellProduct -= OnAvailableAgain;
+        unlockModel.OnUnlocked -= OnUnlocked;
     }
 
     #endregion
